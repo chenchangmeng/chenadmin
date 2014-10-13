@@ -32,10 +32,10 @@
 					<a href="javascript:void(0);">当前位置</a> 
 				</li>
 				<li>
-					<a href="javascript:void(0);">用户管理</a> 
+					<a href="javascript:void(0);">分类配置</a> 
 				</li>
 				<li class="active">
-					用户列表
+					<?php echo $currTermData[0]->name;  ?>修改
 				</li>
 			</ul>	
 
@@ -53,20 +53,20 @@
 				<input type="hidden" name="path" value="<?php echo $currTermData[0]->path; ?>" />
 				<input type="hidden" name="currPid" value="<?php echo $currTermData[0]->pid; ?>" />
 				<div class="form-group">
-					<label for="name" class="col-sm-2 control-label">名称</label>
+					<label for="name" class="col-sm-2 control-label">名称：</label>
 					<div class="col-xs-7" id="name_mess">
 						<input type="text" class="form-control operate-form" maxlength="32" name="name" id="name" value="<?php echo $currTermData[0]->name;  ?>" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="enName" class="col-sm-2 control-label">英文全名</label>
+					<label for="enName" class="col-sm-2 control-label">英文全名：</label>
 					<div class="col-xs-7" id="enName_mess">
 						<input type="text" class="form-control operate-form" maxlength="80" name="enName" id="enName" value="<?php echo $currTermData[0]->enName;  ?>" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="user_name" class="col-sm-2 control-label">描述</label>
+					<label for="user_name" class="col-sm-2 control-label">描述：</label>
 					<div class="col-xs-7" id="user_name_mess">
 						<!-- 加载编辑器的容器 -->
 					    <script id="container" name="content" type="text/plain">
@@ -83,7 +83,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="pid" class="col-sm-2 control-label">父分类</label>
+					<label for="pid" class="col-sm-2 control-label">父分类：</label>
 					<div class="col-xs-7" id="role_id_mess">
 						<select name="pid" id="pid" class="form-control operate-form">
 							<option value="0" >--<?php echo $vocaData[0]->name; ?>--</option>
@@ -96,14 +96,14 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="weight" class="col-sm-2 control-label">排序</label>
+					<label for="weight" class="col-sm-2 control-label">排序：</label>
 					<div class="col-xs-7" id="weight_mess">
 						<input type="text" value="<?php echo $currTermData[0]->weight; ?>" name="weight" id="weight" class="form-control operate-form">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-xs-5">
-						 <button type="submit" class="btn btn-default">修改</button>
+						 <button type="submit" class="btn btn-success custom-news-btn">修改</button>
 					</div>
 				</div>
 			<?php echo Form::close();  ?>		

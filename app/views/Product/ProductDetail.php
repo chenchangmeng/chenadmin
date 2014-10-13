@@ -47,7 +47,12 @@
 				<div class="col-xs-12 column">
 
 					<!-- 加载编辑器的容器 -->
-					<label for="content" class="control-label"><h4><?php echo $pData->name; ?>详细信息：</h4></label>
+					<label for="content" class="control-label">
+						<h4>
+							<a href="javascript:void(0);"><?php echo $pData->name; ?></a>
+							(<a href="<?php echo URL::to('taxonomy/taxonomy-update').'/'.$pData->vid.'/'.$pData->tid; ?>">修改</a>)详细信息：
+						</h4>
+					</label>
 					<?php echo Form::open(array('url' => '', 'method' => 'post',  'id'=>'career_add_form', 'name'=>'career_add_form'));  ?>
 					    <input type="hidden" id="tid" name="tid" value="<?php echo $pData->tid;  ?>" />
 					    <input type="hidden" id="newFlag" name="newFlag" value="<?php echo $newFlag; ?>" />

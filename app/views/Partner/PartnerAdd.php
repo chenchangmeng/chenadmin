@@ -106,7 +106,7 @@
 												
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-xs-5">
-						 <button type="submit" class="btn btn-default">添加</button>
+						 <button type="submit" class="btn btn-success custom-news-btn">添加</button>
 					</div>
 				</div>
 			<?php echo Form::close();  ?>		

@@ -31,7 +31,7 @@ em{
 		<li class="<?php if($CCName == 'BranchController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('branch/branch-index'); ?>">ETA公司</a>
 		</li>
-		<li class="<?php if($CCName == 'ParterController'){echo 'active';} ?>">
+		<li class="<?php if($CCName == 'PartnerController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('partner/partner-index'); ?>">合作伙伴</a>
 		</li>
 		<li class="<?php if($CCName == 'CareerController'){echo 'active';} ?>">
@@ -106,7 +106,16 @@ em{
 		<li class="nav-header">
 			<em class="glyphicon glyphicon-cog"></em>分类配置
 		</li>
-		<li class="">
+		<li class="<?php if($CCName == 'TaxonomyController_4'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/4'); ?>">产品配置</a>
+		</li>
+		<li class="<?php if($CCName == 'TaxonomyController_6'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/6'); ?>">服务配置</a>
+		</li>
+		<li class="<?php if($CCName == 'TaxonomyController_5'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/5'); ?>">客户配置</a>
+		</li>
+		<li class="<?php if($CCName == 'TaxonomyController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('taxonomy/vocabulary-index'); ?>">词根</a>
 		</li>
 		

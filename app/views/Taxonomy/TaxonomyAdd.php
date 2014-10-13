@@ -32,10 +32,10 @@
 					<a href="javascript:void(0);">当前位置</a> 
 				</li>
 				<li>
-					<a href="javascript:void(0);">用户管理</a> 
+					<a href="javascript:void(0);">分类配置</a> 
 				</li>
 				<li class="active">
-					用户列表
+					<?php echo $vocaData[0]->name; ?>添加
 				</li>
 			</ul>	
 
@@ -50,19 +50,19 @@
 			<?php echo Form::open(array('url' => 'taxonomy/taxonomy-add-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'taxonomy_add_form'));  ?>
 				<input type="hidden" name="vid" id="vid" value="<?php echo $vocaData[0]->vid; ?>" />
 				<div class="form-group">
-					<label for="name" class="col-sm-2 control-label">名称</label>
+					<label for="name" class="col-sm-2 control-label">名称：</label>
 					<div class="col-xs-7" id="name_mess">
 						<input type="text" class="form-control operate-form" maxlength="32" name="name" id="name" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="enName" class="col-sm-2 control-label">英文全名</label>
+					<label for="enName" class="col-sm-2 control-label">英文全名：</label>
 					<div class="col-xs-7" id="enName_mess">
 						<input type="text" class="form-control operate-form" maxlength="80" name="enName" id="enName" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="user_name" class="col-sm-2 control-label">描述</label>
+					<label for="user_name" class="col-sm-2 control-label">描述：</label>
 					<div class="col-xs-7" id="user_name_mess">
 						<!-- 加载编辑器的容器 -->
 					    <script id="container" name="content" type="text/plain">
@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="pid" class="col-sm-2 control-label">父分类</label>
+					<label for="pid" class="col-sm-2 control-label">父分类：</label>
 					<div class="col-xs-7" id="role_id_mess">
 						<select name="pid" id="pid" class="form-control operate-form">
 							<option value="0" >--<?php echo $vocaData[0]->name; ?>--</option>
@@ -92,7 +92,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="weight" class="col-sm-2 control-label">排序</label>
+					<label for="weight" class="col-sm-2 control-label">排序：</label>
 					<div class="col-xs-7" id="weight_mess">
 						<input type="text" name="weight" id="weight" class="form-control operate-form">
 					</div>
@@ -100,7 +100,7 @@
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-xs-5">
-						 <button type="submit" class="btn btn-default">添加</button>
+						 <button type="submit" class="btn btn-success custom-news-btn">添加</button>
 					</div>
 				</div>
 			<?php echo Form::close();  ?>		

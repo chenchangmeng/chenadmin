@@ -55,14 +55,14 @@
 			</div>
 			<?php echo Form::open(array('url' => 'branch/branch-add-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'branch_add_form'));  ?>
 				<div class="form-group">
-					<label for="branchName" class="col-sm-1 control-label">名称：</label>
+					<label for="branchName" class="col-sm-2 control-label">名称：</label>
 					<div class="col-xs-7" id="branchName_mess">
 						<input type="text" class="form-control operate-form" maxlength="32" name="branchName" id="branchName" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="real_name" class="col-sm-1 control-label"></label>
+					<label for="real_name" class="col-sm-2 control-label"></label>
 					<input type="hidden"  name="branchUrl" id="branchUrl" value="">
 					<div class="col-xs-7" id="real_name_mess">
 						<div id="branchDiv" class="row clearfix">
@@ -80,35 +80,35 @@
 				</div>
 
 				<div class="form-group">
-					<label for="code" class="col-sm-1 control-label">邮编：</label>
+					<label for="code" class="col-sm-2 control-label">邮编：</label>
 					<div class="col-xs-7" id="code_mess">
 						<input type="text" class="form-control operate-form" maxlength="20" name="code" id="code" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="mobile" class="col-sm-1 control-label">电话：</label>
+					<label for="mobile" class="col-sm-2 control-label">电话：</label>
 					<div class="col-xs-7" id="mobile_mess">
 						<input type="text" class="form-control operate-form" maxlength="20" name="mobile" id="mobile" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="fax" class="col-sm-1 control-label">传真：</label>
+					<label for="fax" class="col-sm-2 control-label">传真：</label>
 					<div class="col-xs-7" id="fax_mess">
 						<input type="text" class="form-control operate-form" maxlength="20" name="fax" id="fax" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="email" class="col-sm-1 control-label">邮箱：</label>
+					<label for="email" class="col-sm-2 control-label">邮箱：</label>
 					<div class="col-xs-7" id="email_mess">
 						<input type="text" class="form-control operate-form" maxlength="80" name="email" id="email" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="url" class="col-sm-1 control-label">官网：</label>
+					<label for="url" class="col-sm-2 control-label">官网：</label>
 					<div class="col-xs-7" id="url_mess">
 						<input type="text" class="form-control operate-form" maxlength="80" name="url" id="url" />
 					</div>
@@ -116,14 +116,14 @@
 
 
 				<div class="form-group">
-					<label for="sort" class="col-sm-1 control-label">排序：</label>
+					<label for="sort" class="col-sm-2 control-label">排序：</label>
 					<div class="col-xs-7" id="sort_mess">
 						<input type="text" class="form-control operate-form" maxlength="3" name="sort" id="sort" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="address" class="col-sm-1 control-label">地址：</label>
+					<label for="address" class="col-sm-2 control-label">地址：</label>
 					<div class="col-xs-7" id="address_mess">
 						<input type="text" class="form-control operate-form" maxlength="120" name="address" id="address" />
 					</div>
