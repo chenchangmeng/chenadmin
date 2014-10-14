@@ -93,6 +93,10 @@ class ProductController extends BaseController {
 				$this->cVariable['tagMenu'] = "产品与服务";
 			}
 
+			$this->cVariable['propertyData'] = $this->product->getPropertyData($vid);
+
+
+
 			return View::make('Product.ProductInfo', $this->cVariable);
 		}else{
 			$this->backToDashboard();

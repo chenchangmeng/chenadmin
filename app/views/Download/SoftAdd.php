@@ -17,8 +17,6 @@
 	<?php echo HTML::script('js/jquery.validate.js'); ?>
 	<?php echo HTML::script('js/bootstrap.min.js'); ?>
 	<?php echo HTML::script('js/scripts.js'); ?>
-	<?php echo HTML::script('js/ajax.js'); ?>
-	<?php echo HTML::script('js/page.js'); ?>
 </head>
 
 <body>
@@ -41,7 +39,7 @@
 					<a href="javascript:void(0);">产品和服务</a> 
 				</li>
 				<li class="active">
-					<?php echo $tagMenu;  ?>属性添加
+					软件添加
 				</li>
 			</ul>	
 
@@ -53,34 +51,44 @@
 					
 				</div>
 			</div>
-			<?php echo Form::open(array('url' => 'product/product-info-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'product_add_form'));  ?>
-				<input type="hidden" name="tid" id="tid" value="<?php echo $tid; ?>" />
-				<input type="hidden" name="vid" id="vid" value="<?php echo $vid; ?>" />
+			<?php echo Form::open(array('url' => 'download/soft-add-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'soft_add_form'));  ?>
 				<div class="form-group">
-					<label for="productName" class="col-sm-2 control-label">产品与服务：</label>
-					<div class="col-xs-7" id="productName_mess">
-						<input type="text" class="form-control operate-form" disabled="disabled" value="<?php echo $tagMenu;  ?>" maxlength="80" name="productName" id="productName" />
+					<label for="softName" class="col-sm-2 control-label">软件名称<span class="asterisk-tip">*</span>：</label>
+					<div class="col-xs-7" id="softName_mess">
+						<input type="text" class="form-control operate-form"  maxlength="80" name="softName" id="softName" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="infoName" class="col-sm-2 control-label">属性名称<span class="asterisk-tip">*</span>：</label>
+					<label for="softDownloadName" class="col-sm-2 control-label">文件名称：</label>
+					<div class="col-xs-7" id="softDownloadName_mess">
+						<input type="text" class="form-control operate-form" maxlength="80" name="softDownloadName" id="softDownloadName" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="infoName" class="col-sm-2 control-label">软件版本：</label>
 					<div class="col-xs-7" id="infoName_mess">
-						<input type="text" class="form-control operate-form" maxlength="80" name="infoName" id="infoName" />
+						<input type="text" class="form-control operate-form" maxlength="10" name="softVersion" id="softVersion" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="type" class="col-sm-2 control-label">分类：</label>
-					<div class="col-xs-7" id="type_mess">
-						<select name="type" id="type" class="form-control operate-form">
+					<label for="softType" class="col-sm-2 control-label">分类：</label>
+					<div class="col-xs-7" id="softType_mess">
+						<select name="softType" id="softType" class="form-control operate-form">
 								<option value="" >--请选择--</option>
-								<?php foreach ($propertyData as $key => $value) {
+								<?php foreach ($softMenu as $key => $value) {
 								?>
-									<option value="<?php echo $value['tid']; ?>" ><?php echo $value['name']; ?></option>
+									<option value="<?php echo $value->tid; ?>" ><?php echo $value->path_level.$value->name; ?></option>
 								<?php
-								}  ?>
+								} ?>
 								
 						</select> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="softPublishDate" class="col-sm-2 control-label">发布时间：</label>
+					<div class="col-xs-7" id="softPublishDate_mess">
+						<input type="text" class="form-control operate-form"  name="softPublishDate" id="softPublishDate" >
 					</div>
 				</div>
 				
@@ -90,23 +98,7 @@
 						<input type="text" class="form-control operate-form" maxlength="3" name="sort" id="sort" >
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="infoContent" class="col-sm-2 control-label">详细信息：</label>
-					<div class="col-xs-7" id="infoContent_mess">
-						<script id="infoContent" name="infoContent" type="text/plain">
-
-					    </script>
-					     <!-- 配置文件 -->
-					    <?php echo HTML::script('js/ueditor/ueditor.config.js'); ?>
-					    <!-- 编辑器源码文件 -->
-					    <?php echo HTML::script('js/ueditor/ueditor.all.min.js'); ?>
-					 
-					    <!-- 实例化编辑器 -->
-					    <script type="text/javascript">					    	
-					        var ue_1 = UE.getEditor('infoContent');
-					    </script>
-					</div>
-				</div>	
+					
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-xs-5">
 						 <button type="submit" class="btn btn-success custom-news-btn">添加</button>
@@ -122,14 +114,23 @@
 <?php echo HTML::script('js/jquery-ui.min.js'); ?>
 
 <script type="text/javascript">
-$("#product_add_form").validate({
+$( "#softPublishDate" ).datepicker({
+	inline: true,
+	dateFormat : "yy-mm-dd"
+});
+
+$("#soft_add_form").validate({
 	//debug:true,
 	rules:{		
-		infoName : {
+		softName : {
 			required : true,
 			
 		},
-		type : {
+		softDownloadName : {
+			required : true,
+			
+		},
+		softType : {
 			required : true,
 		},
 		sort : {
@@ -140,10 +141,13 @@ $("#product_add_form").validate({
 		
 	},
 	messages:{
-		infoName : {
-			required : "请填写属性名称"
+		softName : {
+			required : "请填软件名称"
 		},
-		type : {
+		softDownloadName : {
+			required : "请填文件名称"
+		},
+		softType : {
 			required : "请选择分类",
 		},
 		sort: {

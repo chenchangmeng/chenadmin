@@ -1,7 +1,7 @@
 <?php
 /**
  *  git remote add origin https://github.com/chenchangmeng/eta.git
- *
+ *  558182  密码
  *  git push origin master
  */
 class BaseController extends Controller {
@@ -15,7 +15,7 @@ class BaseController extends Controller {
 		$this->beforeFilter('auth');
 	
 		//检查登录情况
-		//$this->initLogin();
+		$this->initLogin();
 
 		$this->initProduct();
 
@@ -154,7 +154,7 @@ class BaseController extends Controller {
 		$this->cVariable['serviceMenu'] = $serviceMenu;
 	}
 
-	private function Msort($serviceMenu){
+	protected function Msort($serviceMenu){
 		sort($serviceMenu);
 		$c = count($serviceMenu);
 		for($i=0; $i<$c;$i++){

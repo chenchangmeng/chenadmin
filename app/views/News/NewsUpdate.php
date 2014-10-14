@@ -49,13 +49,13 @@
 			<?php echo Form::open(array('url' => 'news/news-update-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'news_add_form', 'name'=>'news_add_form', 'enctype'=>'multipart/form-data'));  ?>
 				<input type="hidden" name="nid" value="<?php echo $resultData[0]->nid; ?>" />
 				<div class="form-group">
-					<label for="title" class="col-sm-1 control-label">标题<span class="asterisk-tip">*</span></label>
+					<label for="title" class="col-sm-2 control-label">标题<span class="asterisk-tip">*</span></label>
 					<div class="col-xs-7" id="title_mess">
 						<input type="text" value="<?php echo $resultData[0]->title; ?>" class="form-control operate-form" maxlength="150" name="title" id="title" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="subTitle" class="col-sm-1 control-label">子标题</label>
+					<label for="subTitle" class="col-sm-2 control-label">子标题</label>
 					<div class="col-xs-7" id="subTitle_mess">
 						<input type="text" value="<?php echo $resultData[0]->subTitle; ?>" class="form-control operate-form" maxlength="150" name="subTitle" id="subTitle" />
 					</div>
@@ -69,7 +69,7 @@
 				</div> -->
 
 				<div class="form-group">
-					<label for="user_name" class="col-sm-1 control-label">概要</label>
+					<label for="user_name" class="col-sm-2 control-label">概要</label>
 					<div class="col-xs-7" id="overview_mess">
 						
 					    <textarea name="overview" class="form-control operate-form"><?php echo $resultData[0]->overview; ?></textarea>
@@ -77,7 +77,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="user_name" class="col-sm-1 control-label">内容</label>
+					<label for="user_name" class="col-sm-2 control-label">内容</label>
 					<div class="col-xs-7" id="user_name_mess">
 						<!-- 加载编辑器的容器 -->
 					    <script id="container" name="content" type="text/plain">
@@ -94,7 +94,7 @@
 					</div>
 				</div>
 
-				<div class="col-xs-8 custom-news-col-xs-8">
+				<div class="col-xs-9 custom-news-col-xs-8">
 					<div class="tabs tabs-vertical tabs-left">
 						<ul class="nav nav-tabs col-sm-2">
 							<li class="active">

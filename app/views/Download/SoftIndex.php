@@ -67,7 +67,7 @@
 					<a href="javascript:void(0);" onclick="saveInfo()" class="btn btn-primary btn-custom">
 						<em class='glyphicon glyphicon-saved'></em>保存
 					</a>
-					<a href="<?php echo URL::to('branch/branch-add'); ?>"  class="btn btn-primary btn-custom">
+					<a href="<?php echo URL::to('download/soft-add'); ?>"  class="btn btn-primary btn-custom">
 						<em class='glyphicon glyphicon-plus'></em>添加软件
 					</a>
 				</div>
@@ -91,6 +91,9 @@
 								发布时间
 							</th>
 							<th>
+								创建时间
+							</th>
+							<th>
 								操作
 							</th>
 						</tr> 
@@ -99,7 +102,15 @@
 						<?php $i = 0; ?>
 						<?php foreach($softData as $value){ ?>
 							<?php echo $i == 1 ? "<tr class='active'>" : "<tr>"; ?>	
-								
+								<td><?php echo $value->softName; ?></td>
+								<td><?php echo $value->softVersion; ?></td>
+								<td><?php echo $value->softTypeName; ?></td>
+								<td><?php echo $value->softPublishDate; ?></td>
+								<td><?php echo $value->created_at; ?></td>
+								<td>
+									<a href="<?php echo URL::to('download/soft-update/'.$value->id); ?>"><em class="glyphicon glyphicon-edit"></em>编辑</a>/
+									<a href="javascript:void(0);" onclick="DeleteSoft(<?php echo $value->id; ?>)"><em class='glyphicon glyphicon-remove'></em>删除</a>
+								</td>
 								
 							</tr>
 							<?php $i = 1 - $i; ?>
@@ -121,6 +132,8 @@
 								<a href="javascript:pagelist.endPage()">最末页</a>
 								<select id="pageSize" class="table-page-select" onchange="pagelist.changePageSize(this.value)">
 									<option value="10">10</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
 								</select>
 							</span>
 						</td>
@@ -139,7 +152,7 @@
 pagelist.filter["page"] = 1; //当前页
 pagelist.pageCount = <?php echo $pages; ?>; //总页数
 
-pagelist.mUrl = "<?php echo URL::to('partner/partner-page'); ?>";
+pagelist.mUrl = "<?php echo URL::to('download/soft-page'); ?>";
 
 function searchPartner(){
 	//pagelist.filter.brandName = $("#brandName").val();
@@ -197,9 +210,9 @@ function saveInfo(){
 	}
 }
 
-function DeleteBranch(id){
-	if(confirm("确定要删除该内容吗？")){
-		window.location.href = "<?php echo URL::to('branch/branch-delete/'); ?>/" + id;
+function DeleteSoft(id){
+	if(confirm("确定要删除该软件吗？")){
+		window.location.href = "<?php echo URL::to('download/soft-delete/'); ?>/" + id;
 	}
 }
 

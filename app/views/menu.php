@@ -118,15 +118,25 @@ em{
 		<li class="<?php if($CCName == 'TaxonomyController_4'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('taxonomy/taxonomy-index/4'); ?>">产品配置</a>
 		</li>
+		<li class="<?php if($CCName == 'TaxonomyController_10'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/10'); ?>">产品属性</a>
+		</li>
 		<li class="<?php if($CCName == 'TaxonomyController_6'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('taxonomy/taxonomy-index/6'); ?>">服务配置</a>
+		</li>
+		<li class="<?php if($CCName == 'TaxonomyController_11'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/11'); ?>">服务属性</a>
 		</li>
 		<li class="<?php if($CCName == 'TaxonomyController_5'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('taxonomy/taxonomy-index/5'); ?>">客户配置</a>
 		</li>
-		<li class="<?php if($CCName == 'DownloadController_7'){echo 'active';} ?>">
-			<a href="<?php echo URL::to('taxonomy/taxonomy-index/7'); ?>">支持与下载</a>
+		<li class="<?php if($CCName == 'TaxonomyController_8'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/8'); ?>">软件类型</a>
 		</li>
+		<li class="<?php if($CCName == 'TaxonomyController_9'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/9'); ?>">文档类型</a>
+		</li>
+		
 		<li class="<?php if($CCName == 'TaxonomyController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('taxonomy/vocabulary-index'); ?>">词根</a>
 		</li>
