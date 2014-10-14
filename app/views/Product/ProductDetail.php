@@ -117,9 +117,12 @@
 				<div class="col-xs-8 column" style="padding-top:10px;padding-left:12px;">
 					<div class="tabs tabs-product">	
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#productDescription" data-toggle="tab">功能介绍</a></li>
-							<li><a href="#productApply" data-toggle="tab">行业应用 </a></li>
-							<li><a href="#productReviews" data-toggle="tab">用户案例</a></li>
+							<?php foreach ($detailData as $key => $value) {
+							?>
+								<li class="<?php if($key == 0){echo 'active';} ?>">
+									<a href="#nav-tabs-<?php echo $value['tid']; ?>" data-toggle="tab"><?php echo $value['name']; ?></a>
+								</li>
+							<?php }  ?>
 						</ul>	
 					</div>	
 				</div>
@@ -135,79 +138,27 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<div class="tabs tabs-product">
-						
+					<div class="tabs tabs-product">					
 						<div class="tab-content">
-							<div class="tab-pane active" id="productDescription">
-								<?php
-									if(isset($detailData[1])){
-										foreach ($detailData[1] as $key => $value) {
-								?>
-								<section class="toggle ">
-									<label>
-										<?php echo $value->infoName;  ?>
-										<span style="margin-left:50px;">创建时间：<?php echo $value->created_at; ?></span>&nbsp;&nbsp;
-										<span><a href="<?php echo URL::to('product/product-info-update/'.$value->id.'/'.$pData->tid.'/'.$pData->vid); ?>" ><em class="glyphicon glyphicon-edit"></em>编辑</a></span>&nbsp;
-										<span><a href="javascript:void(0);" onclick="DeleteProductInfo(<?php echo $value->id; ?>, <?php echo $pData->tid; ?>, <?php echo $pData->vid; ?>)"><em class='glyphicon glyphicon-remove'></em>删除</a></span>
-									</label>
-									<div class="toggle-content" style="margin-left:15px;">
-										<?php echo $value->infoContent;  ?>										
-									</div>
-								</section>
-								<?php
-											# code...
-										}
-									}
-
-								?>
-							</div>
-							<div class="tab-pane" id="productApply">
-								<?php
-									if(isset($detailData[2])){
-										foreach ($detailData[2] as $key => $value) {
-								?>
-								<section class="toggle ">
-									<label>
-										<?php echo $value->infoName;  ?>
-										<span style="margin-left:50px;">创建时间：<?php echo $value->created_at; ?></span>&nbsp;&nbsp;
-										<span><a href="<?php echo URL::to('product/product-info-update/'.$value->id.'/'.$pData->tid.'/'.$pData->vid); ?>" ><em class="glyphicon glyphicon-edit"></em>编辑</a></span>&nbsp;
-										<span><a href="javascript:void(0);" onclick="DeleteProductInfo(<?php echo $value->id; ?>, <?php echo $pData->tid; ?>, <?php echo $pData->vid; ?>)"><em class='glyphicon glyphicon-remove'></em>删除</a></span>
-									</label>
-									<div class="toggle-content" style="margin-left:15px;">
-										<?php echo $value->infoContent;  ?>										
-									</div>
-								</section>
-								<?php
-											# code...
-										}
-									}
-
-								?>
-								
-							</div>
-							<div class="tab-pane" id="productReviews">
-								<?php
-									if(isset($detailData[3])){
-										foreach ($detailData[3] as $key => $value) {
-								?>
-								<section class="toggle ">
-									<label>
-										<?php echo $value->infoName;  ?>
-										<span style="margin-left:50px;">创建时间：<?php echo $value->created_at; ?></span>&nbsp;&nbsp;
-										<span><a href="<?php echo URL::to('product/product-info-update/'.$value->id.'/'.$pData->tid.'/'.$pData->vid); ?>" ><em class="glyphicon glyphicon-edit"></em>编辑</a></span>&nbsp;
-										<span><a href="javascript:void(0);" onclick="DeleteProductInfo(<?php echo $value->id; ?>, <?php echo $pData->tid; ?>, <?php echo $pData->vid; ?>)"><em class='glyphicon glyphicon-remove'></em>删除</a></span>
-									</label>
-									<div class="toggle-content" style="margin-left:15px;">
-										<?php echo $value->infoContent;  ?>										
-									</div>
-								</section>
-								<?php
-											# code...
-										}
-									}
-
-								?>	
-							</div>
+							<?php foreach ($detailData as $key => $value) { ?>
+								<div class="tab-pane <?php if($key == 0){echo 'active';} ?>" id="nav-tabs-<?php echo $value['tid']; ?>">
+									<?php if(isset($value['child']) && !empty($value['child'])){ ?>
+										<?php foreach ($value['child'] as $kkey => $kvalue) { ?>
+											<section class="toggle ">
+												<label>
+													<?php echo $kvalue['infoName'];  ?>
+													<span style="margin-left:50px;">创建时间：<?php echo $kvalue['created_at']; ?></span>&nbsp;&nbsp;
+													<span><a href="<?php echo URL::to('product/product-info-update/'.$kvalue['id'].'/'.$pData->tid.'/'.$pData->vid); ?>" ><em class="glyphicon glyphicon-edit"></em>编辑</a></span>&nbsp;
+													<span><a href="javascript:void(0);" onclick="DeleteProductInfo(<?php echo $kvalue['id']; ?>, <?php echo $pData->tid; ?>, <?php echo $pData->vid; ?>)"><em class='glyphicon glyphicon-remove'></em>删除</a></span>
+												</label>
+												<div class="toggle-content" style="margin-left:15px;">
+													<?php echo $kvalue['infoContent'];  ?>										
+												</div>
+											</section>
+										<?php } ?>
+									<?php } ?>
+								</div>
+							<?php }  ?>							
 						</div>
 					</div>
 				</div>

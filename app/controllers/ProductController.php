@@ -31,8 +31,11 @@ class ProductController extends BaseController {
 
 			$this->cVariable['pData'] = $pData;
 
+			//获取产品与服务的属性
+			//$this->cVariable['propertyData'] = $this->product->getPropertyData($vid);
+
 			//获取商品的属性
-			$detailData = $this->product->getProductDetailInfos($tid);
+			$detailData = $this->product->getProductDetailInfos($tid, $vid);
 			$this->cVariable['detailData'] = $detailData;
 
 			// echo "<pre>";
@@ -93,6 +96,7 @@ class ProductController extends BaseController {
 				$this->cVariable['tagMenu'] = "产品与服务";
 			}
 
+			//获取产品与服务的属性
 			$this->cVariable['propertyData'] = $this->product->getPropertyData($vid);
 
 
