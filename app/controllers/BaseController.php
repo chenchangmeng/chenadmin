@@ -1,5 +1,9 @@
 <?php
-
+/**
+ *  git remote add origin https://github.com/chenchangmeng/eta.git
+ *
+ *  git push origin master
+ */
 class BaseController extends Controller {
 
 	/**

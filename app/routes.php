@@ -50,3 +50,5 @@ Route::controller("career", "CareerController");
 Route::controller("product", "ProductController");
 
 Route::controller("customer", "CustomerController");
+
+Route::controller("download", "DownloadController");

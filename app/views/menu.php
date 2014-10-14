@@ -81,6 +81,15 @@ em{
 				}
 			?>			
 		<?php } ?>
+		<li class="nav-header">
+			<em class="glyphicon glyphicon-download-alt"></em>支持与下载
+		</li>
+		<li class="<?php if($CCName == 'DownloadController_soft'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('download/soft-info/soft'); ?>">软件管理</a>
+		</li>
+		<li class="">
+			<a href="javascript:void(0);">手册管理</a>
+		</li>
 
 		<li class="nav-header">
 			<em class="glyphicon glyphicon-tower"></em>行业客户
@@ -114,6 +123,9 @@ em{
 		</li>
 		<li class="<?php if($CCName == 'TaxonomyController_5'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('taxonomy/taxonomy-index/5'); ?>">客户配置</a>
+		</li>
+		<li class="<?php if($CCName == 'DownloadController_7'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('taxonomy/taxonomy-index/7'); ?>">支持与下载</a>
 		</li>
 		<li class="<?php if($CCName == 'TaxonomyController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('taxonomy/vocabulary-index'); ?>">词根</a>
