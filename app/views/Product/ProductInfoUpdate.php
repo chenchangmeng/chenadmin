@@ -75,10 +75,11 @@
 					<div class="col-xs-7" id="type_mess">
 						<select name="type" id="type" class="form-control operate-form">
 								<option value="" >--请选择--</option>
-								<option <?php if($productInfo->type == 1){echo "selected";} ?> value="1" >功能介绍</option>
-								<option <?php if($productInfo->type == 2){echo "selected";} ?> value="2" >行业应用</option>
-								<option <?php if($productInfo->type == 3){echo "selected";} ?> value="3" >用户案例</option>
-								
+								<?php foreach ($propertyData as $key => $value) {
+								?>
+									<option <?php if($productInfo->type == $value['tid']){echo 'selected';} ?> value="<?php echo $value['tid']; ?>" ><?php echo $value['name']; ?></option>
+								<?php
+								}  ?>
 						</select> 
 					</div>
 				</div>
@@ -121,7 +122,7 @@
 <?php echo HTML::script('js/jquery-ui.min.js'); ?>
 
 <script type="text/javascript">
-$("#product_add_form").validate({
+$("#product_update_form").validate({
 	//debug:true,
 	rules:{		
 		infoName : {

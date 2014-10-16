@@ -3,6 +3,7 @@
  *  git remote add origin https://github.com/chenchangmeng/eta.git
  *  558182  密码
  *  git push origin master
+ *  ntpdate us.pool.ntp.org
  */
 class BaseController extends Controller {
 

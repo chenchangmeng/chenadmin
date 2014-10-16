@@ -121,6 +121,9 @@ class ProductController extends BaseController {
 				$this->cVariable['tagMenu'] = "产品与服务";
 			}
 
+			//获取产品与服务的属性
+			$this->cVariable['propertyData'] = $this->product->getPropertyData($vid);
+
 			$this->cVariable['productInfo'] = $this->product->getProductOneInfo($id); 
 			$this->cVariable['vid'] = $vid; 
 			return View::make('Product.ProductInfoUpdate', $this->cVariable);
@@ -168,6 +171,7 @@ class ProductController extends BaseController {
 				'infoName' => $xss->clean(Input::get('infoName')),
 				'infoContent' => Input::get('infoContent'),
 				'sort' => Input::get('sort'),
+				'type' => Input::get('type'),
 				'updated_at' => date('Y-m-d H:i:s')
 			);
 			$action = "product/product-detail/{$tid}/{$vid}";

@@ -87,8 +87,8 @@ em{
 		<li class="<?php if($CCName == 'DownloadController_soft'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('download/soft-info/soft'); ?>">软件管理</a>
 		</li>
-		<li class="">
-			<a href="javascript:void(0);">手册管理</a>
+		<li class="<?php if($CCName == 'DownloadController_doc'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('download/doc-info/doc'); ?>">手册管理</a>
 		</li>
 
 		<li class="nav-header">
