@@ -79,7 +79,7 @@
 					<div id="promoteDiv" style="display:<?php if(isset($pBasicData->isPromote) && $pBasicData->isPromote == 1){echo "block";}else{echo "none";}  ?>;" class="row clearfix">
 						<div  class="col-md-10 column">
 							<div class="fieldset flash" id="fsUploadProgress">
-								<span class="legend">Promote Image</span>
+								<span class="legend">Promote Image(1045×450)</span>
 								<div class="progressWrapper" id="promoteUrlID" style="opacity: 1;"><div class="progressContainer blue"><a class="progressCancel" href="#" style="visibility: hidden;"> </a><div></div><div class="progressBarStatus"><img id="promoteUrlDivImg" src="<?php if(isset($pBasicData->promoteUrl)){echo $pBasicData->promoteUrl;} ?>" height="<?php if(isset($pBasicData->promoteUrl) && $pBasicData->promoteUrl != ""){echo '80';}else{echo '0';} ?>" width="180" alt=""></div><div class="progressBarComplete"></div></div></div>
 
 							</div>
@@ -94,7 +94,7 @@
 					<div class="checkbox ">
 						<label>
 						    <input type="checkbox" onclick="onRecommend(this.checked)" name="isRecommend" id="isRecommend"  <?php if(isset($pBasicData->isRecommend) && $pBasicData->isRecommend == 1){echo "checked";}  ?> value="1" >
-						    推送新闻头条
+						    推介产品与服务
 						</label>
 						<input type="hidden"  name="recommendUrl" id="recommendUrl" value="<?php if(isset($pBasicData->recommendUrl)){echo $pBasicData->recommendUrl;} ?>">
 					</div>
@@ -102,7 +102,7 @@
 					<div id="recommendDiv" style="display:<?php if(isset($pBasicData->isRecommend) && $pBasicData->isRecommend == 1){echo "block";}else{echo "none";} ?>;" class="row clearfix">
 						<div  class="col-md-10 column">
 							<div class="fieldset flash" id="fsUploadProgressSticky">
-								<span class="legend">Recommend Image</span>
+								<span class="legend">Recommend Image(product：145 × 145; service：338 × 338)</span>
 								<div class="progressWrapper" id="recommendUrlID" style="opacity: 1;"><div class="progressContainer blue"><a class="progressCancel" href="#" style="visibility: hidden;"> </a><div></div><div class="progressBarStatus"><img id="recommendUrlDivImg" src="<?php if(isset($pBasicData->recommendUrl)){echo $pBasicData->recommendUrl;} ?>" height="<?php if(isset($pBasicData->recommendUrl)&&$pBasicData->recommendUrl != ""){echo '80';}else{echo '0';} ?>" width="180" alt=""></div><div class="progressBarComplete"></div></div></div>
 
 							</div>

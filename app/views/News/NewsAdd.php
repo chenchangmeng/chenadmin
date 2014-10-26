@@ -165,7 +165,7 @@
 									<div id="promoteDiv" style="display:none;" class="row clearfix">
 										<div  class="col-md-10 column">
 											<div class="fieldset flash" id="fsUploadProgress">
-												<span class="legend">Promote Image</span>
+												<span class="legend">Promote Image(1045×450)</span>
 											</div>
 										</div>
 										<div class="col-md-2 column" >
@@ -241,8 +241,8 @@ window.onload = function() {
 		flash_url : "<?php echo HTML::swf('js/swfupload/Flash/swfupload.swf'); ?>",
 		//flash_url : "http://192.168.2.70/swf/demos/swfupload/swfupload.swf",
 		upload_url: "<?php echo URL::to('news/news-deal-img');  ?>",
-		post_params: {"typeImg" : "promoteUrl"},
-		file_size_limit : "1 MB",
+		post_params: {"typeImg" : "promoteUrl", "<?php echo Session::getName(); ?>" : "<?php echo Session::getId(); ?>"},
+		file_size_limit : "3 MB",
 		file_types : "*.jpg;*.png;*.gif;*.jpeg;",
 		file_types_description : "All Files",
 		file_upload_limit : 10,
@@ -290,8 +290,8 @@ window.onload = function() {
 		flash_url : "<?php echo HTML::swf('js/swfupload/Flash/swfupload.swf'); ?>",
 		//flash_url : "http://192.168.2.70/swf/demos/swfupload/swfupload.swf",
 		upload_url: "<?php echo URL::to('news/news-deal-img');  ?>",
-		post_params: {"typeImg" : "stickyUrl"},
-		file_size_limit : "1 MB",
+		post_params: {"typeImg" : "stickyUrl", "<?php echo Session::getName(); ?>" : "<?php echo Session::getId(); ?>"},
+		file_size_limit : "3 MB",
 		file_types : "*.jpg;*.png;*.gif;*.jpeg;",
 		file_types_description : "All Files",
 		file_upload_limit : 10,
@@ -370,8 +370,13 @@ function onPromote(bool){
 	if(bool){
 		document.getElementById('promoteDiv').style.display = "block";
 	}else{
-		document.getElementById('promoteUrlDivImg').src = "";
-		document.getElementById('promoteUrlDivImg').height = 0;
+		var OpromoteUrlDivImg = document.getElementById('promoteUrlDivImg');
+		if(OpromoteUrlDivImg){
+			OpromoteUrlDivImg.src = "";
+			OpromoteUrlDivImg.height = 0;
+		}
+		
+		
 		document.getElementById('promoteUrl').value = "";
 		document.getElementById('promoteDiv').style.display = "none";
 	}
@@ -381,8 +386,11 @@ function onsticky(bool){
 	if(bool){
 		document.getElementById('stickyDiv').style.display = "block";
 	}else{
-		document.getElementById('stickyUrlDivImg').src = "";
-		document.getElementById('stickyUrlDivImg').height = 0;
+		var OstickyUrlDivImg = document.getElementById('stickyUrlDivImg');
+		if(OstickyUrlDivImg){
+			OstickyUrlDivImg.src = "";
+			OstickyUrlDivImg.height = 0;
+		}
 		document.getElementById('stickyUrl').value = "";
 		document.getElementById('stickyDiv').style.display = "none";
 	}

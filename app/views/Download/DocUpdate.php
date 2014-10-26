@@ -62,7 +62,15 @@
 				<div class="form-group">
 					<label for="docDownloadName" class="col-sm-2 control-label">文件名称：</label>
 					<div class="col-xs-7" id="docDownloadName_mess">
-						<input type="text" value="<?php echo $currData[0]->docDownloadName; ?>" class="form-control operate-form" maxlength="80" name="docDownloadName" id="docDownloadName" />
+						<select name="docDownloadName" id="docDownloadName" class="form-control operate-form">
+								<option value="" >--请选择--</option>
+								<?php foreach ($docFile as $key => $value) {
+								?>
+									<option <?php if($currData[0]->docDownloadName == $value){echo "selected";} ?> value="<?php echo $value; ?>" ><?php echo $value; ?></option>
+								<?php
+								} ?>
+								
+						</select> 
 					</div>
 				</div>
 

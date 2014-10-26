@@ -144,7 +144,8 @@ class TaxonomyController extends BaseController {
 						'description' => isset($data['content']) ? $data['content'] : '',
 						'pid' => $pid,
 						'path' => $path,
-						'weight' => $data['weight']
+						'weight' => $data['weight'],
+						'updated_at' => date('Y-m-d H:i:s')
 					)
 				);
 		// 上级分类
@@ -162,12 +163,14 @@ class TaxonomyController extends BaseController {
 						->where('tid', $value->tid)
 						->update(
 							array(
-								'path' => $this->cVariable['termData'][$key]->path
+								'path' => $this->cVariable['termData'][$key]->path,
+								'updated_at' => date('Y-m-d H:i:s')
 							)
 						);
 			   $pPath = $this->cVariable['termData'][$key]->path;
 			}
 		}
+
 		if(!$flag){
 			$action = "taxonomy-update/". $data['vid'] . '/' . $data['tid'];
 			DB::rollback();

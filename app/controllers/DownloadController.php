@@ -102,6 +102,11 @@ class DownloadController extends BaseController {
 	}
 
 	public function getSoftAdd(){
+		//读取需要绑定的软件
+		$this->cVariable['softFile'] = $this->download->getFileList('soft');
+		// echo "<pre>";
+		// print_r($this->cVariable['softFile']);
+		// echo "</pre>";
 		//获取软件分类
 		$taxonomy = new Taxonomy;
 		//$softMenu = array();
@@ -111,6 +116,8 @@ class DownloadController extends BaseController {
 	}
 
 	public function getSoftUpdate($id){
+		//读取需要绑定的软件
+		$this->cVariable['softFile'] = $this->download->getFileList('soft');
 		//获取软件分类
 		$taxonomy = new Taxonomy;
 		//$softMenu = array();
@@ -159,6 +166,7 @@ class DownloadController extends BaseController {
 			'sort' => (int)Input::get('sort'),
 			'softPublishDate' => Input::get('softPublishDate')
 		);
+		//var_dump($softInfo);
 		$action = "download/soft-info/soft";
 		$bool = DB::table('soft')
 		            ->where('id', $id)
@@ -251,7 +259,9 @@ class DownloadController extends BaseController {
 	}
 
 	public function getDocAdd(){
-		//获取软件分类
+		//读取需要绑定的软件
+		$this->cVariable['docFile'] = $this->download->getFileList('doc');
+		
 		$taxonomy = new Taxonomy;
 		//$softMenu = array();
 		$this->cVariable['docMenu'] = $taxonomy->getTermsData(9);
@@ -283,6 +293,8 @@ class DownloadController extends BaseController {
 	}
 
 	public function getDocUpdate($id){
+		//读取需要绑定的软件
+		$this->cVariable['docFile'] = $this->download->getFileList('doc');
 		//获取软件分类
 		$taxonomy = new Taxonomy;
 		//$softMenu = array();

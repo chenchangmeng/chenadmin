@@ -39,7 +39,7 @@ class Download extends Eloquent{
 				LIMIT 
 					{$offset}, 
 				{$perPageSize}";
-
+				//echo $sql;
 		$result = DB::select($sql);
 		
 		return $result;
@@ -100,6 +100,27 @@ class Download extends Eloquent{
 		$result = DB::select($sql);
 
 		return $result;
+	}
+
+	/**
+	 * 读取目录下的软件或者文件
+	 */
+	public function getFileList($fileType = "soft"){
+		$dirPath = $save_path = dirname(dirname(getcwd())) . "/etaf/public/upload/{$fileType}/";
+		$fileData = array();
+		if(is_dir($dirPath)){
+			if($dh = opendir($dirPath)){
+				while (($file = readdir($dh)) !== false) {
+					if(!is_dir($dirPath.'/'.$file) && $file != "." && $file != ".."){
+						//$file = iconv('GB2312', 'UTF-8', $file);
+						$fileData[] = $file;
+					}
+				}
+			}
+			closedir($dh);
+		}
+
+		return $fileData;
 	}
 
 

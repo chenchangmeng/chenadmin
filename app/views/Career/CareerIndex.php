@@ -79,7 +79,7 @@
 							<label>
 								<?php echo $value->careerName;  ?>
 								<span style="margin-left:50px;">状态：<?php if($value->status == 1){echo '启用';}else{echo '禁用';}  ?></span>&nbsp;&nbsp;
-								<span>创建时间：<?php echo $value->created_at; ?></span>&nbsp;&nbsp;
+								<span>创建时间：<?php echo date('Y-m-d', strtotime($value->created_at)); ?></span>&nbsp;&nbsp;
 								<span><a href="<?php echo URL::to('career/career-update/'.$value->id); ?>" ><em class="glyphicon glyphicon-edit"></em>编辑</a></span>&nbsp;
 								<span><a href="javascript:void(0);" onclick="DeleteCareer(<?php echo $value->id; ?>)"><em class='glyphicon glyphicon-remove'></em>删除</a></span>
 							</label>

@@ -13,7 +13,7 @@ class BaseController extends Controller {
 	protected $cVariable = array();
 
 	public function __construct(){
-		$this->beforeFilter('auth');
+		$this->beforeFilter('auth', array('except' => array('postNewsDealImg', 'postBranchDealImg', 'postPartnerDealImg', 'postProductDealImg', 'postCustomerDealImg')));
 	
 		//检查登录情况
 		$this->initLogin();
@@ -26,9 +26,7 @@ class BaseController extends Controller {
 
 		$this->initCController();
 
-		$this->initTemplate();
-
-		
+		$this->initTemplate();		
 		
 	}
 
@@ -36,7 +34,7 @@ class BaseController extends Controller {
 		if (Auth::check()){
 		    // The user is logged in...
 		    $userInfo = Session::get('userInfo');
-		    //var_dump($userInfo);
+
 		    $this->cVariable['userInfo'] = unserialize($userInfo);
 		}else{
 			return Redirect::guest('login');

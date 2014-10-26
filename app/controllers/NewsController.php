@@ -97,7 +97,7 @@ class NewsController extends BaseController {
 		//$upload = new Upload;
 
 		//echo $upload->uploadImg();
-
+		
 		return View::make('News.NewsAdd', $this->cVariable);
 	}
 
@@ -138,15 +138,15 @@ class NewsController extends BaseController {
 			'title' => $xss->clean(Input::get('title')),
 			'subTitle' => $xss->clean(Input::get('subTitle')),
 			'overview' =>  $xss->clean(Input::get('overview')),
-			'readNums' => Input::get('readNums', 100),
-			'sort' => Input::get('sort', 0),
+			'readNums' => Input::get('readNums'),
+			'sort' => Input::get('sort'),
 			'author' => $xss->clean(Input::get('author', 'admin')), //如果为空，默认当前用户
-			'uid' => 1, //当前用户ID,
+			'uid' => $this->cVariable['userInfo']->id, //当前用户ID,
 			'publishedTime'	=> Input::get('publishedTime') ? Input::get('publishedTime') : date('Y-m-d'),
-			'isComment' => Input::get('isComment', 1), //默认开启评论
-			'promote' => Input::get('promote', 0), //默认不推送幻灯片
-			'sticky' => Input::get('sticky', 1),	//默认是新闻头条
-			'published' => Input::get('published', 1), //默认直接发布新闻
+			'isComment' => Input::get('isComment'), //默认开启评论
+			'promote' => Input::get('promote'), //默认不推送幻灯片
+			'sticky' => Input::get('sticky'),	//默认是新闻头条
+			'published' => Input::get('published'), //默认直接发布新闻
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s'),
 			//'pid' => 0
@@ -158,7 +158,7 @@ class NewsController extends BaseController {
 		$insertId = DB::table('node')->insertGetId($data_info);
 
 		$data_content = array(
-			'content' =>  $xss->clean(Input::get('content', "")),
+			'content' =>  Input::get('content'),
 			'nid' => $insertId,
 			'promoteUrl' => Input::get('promoteUrl'),
 			'stickyUrl' => Input::get('stickyUrl')
@@ -199,14 +199,14 @@ class NewsController extends BaseController {
 			'title' => $xss->clean(Input::get('title')),
 			'subTitle' => $xss->clean(Input::get('subTitle')),
 			'overview' =>  $xss->clean(Input::get('overview')),
-			'readNums' => Input::get('readNums', 100),
-			'sort' => Input::get('sort', 0),
+			'readNums' => Input::get('readNums'),
+			'sort' => Input::get('sort'),
 			'author' => $xss->clean(Input::get('author')), //如果为空，默认当前用户
 			'publishedTime'	=> Input::get('publishedTime') ? Input::get('publishedTime') : date('Y-m-d'),
-			'isComment' => Input::get('isComment', 1), //默认开启评论
-			'promote' => Input::get('promote', 0), //默认不推送幻灯片
-			'sticky' => Input::get('sticky', 1),	//默认是新闻头条
-			'published' => Input::get('published', 1), //默认直接发布新闻
+			'isComment' => Input::get('isComment'), //默认开启评论
+			'promote' => Input::get('promote'), //默认不推送幻灯片
+			'sticky' => Input::get('sticky'),	//默认是新闻头条
+			'published' => Input::get('published'), //默认直接发布新闻
 			'updated_at' => date('Y-m-d H:i:s'),
 			//'pid' => 0
 			
@@ -219,7 +219,7 @@ class NewsController extends BaseController {
 		            ->update($data_info);
 		            //var_dump($bool);
 		$data_content = array(
-			'content' =>  $xss->clean(Input::get('content')),
+			'content' =>  Input::get('content'),
 			'promoteUrl' => Input::get('promoteUrl'),
 			'stickyUrl' => Input::get('stickyUrl'),
 			'updated_at' => date('Y-m-d H:i:s')
@@ -247,10 +247,18 @@ class NewsController extends BaseController {
 
 	public function postNewsDealImg(){
 		$typeImg = Input::get('typeImg');
+
+		// $laravel_session  = Input::get('laravel_session');
+		// if($laravel_session){
+		// 	//echo 'kk';
+		// 	Session::setId($laravel_session);
+		// 	//echo 'kk';
+		// }
+		// Session::start();
 		$upload = new Upload;
 		//var_dump('expression');
 		//var_dump($_FILES);
-		//echo 'aaa';
+		//var_dump($laravel_session);
 		$upload->uploadImg($typeImg);
 		exit(0);
 	}

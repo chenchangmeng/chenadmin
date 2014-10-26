@@ -61,7 +61,16 @@
 				<div class="form-group">
 					<label for="docDownloadName" class="col-sm-2 control-label">文件名称：</label>
 					<div class="col-xs-7" id="docDownloadName_mess">
-						<input type="text" class="form-control operate-form" maxlength="80" name="docDownloadName" id="docDownloadName" />
+						
+						<select name="docDownloadName" id="docDownloadName" class="form-control operate-form">
+								<option value="" >--请选择--</option>
+								<?php foreach ($docFile as $key => $value) {
+								?>
+									<option value="<?php echo $value; ?>" ><?php echo $value; ?></option>
+								<?php
+								} ?>
+								
+						</select> 
 					</div>
 				</div>
 
@@ -128,7 +137,7 @@ $("#doc_add_form").validate({
 			required : "请填手册名称"
 		},
 		docDownloadName : {
-			required : "请填文件名称"
+			required : "请选择文件名称"
 		},
 		docType : {
 			required : "请选择分类",

@@ -4,6 +4,7 @@ class Upload {
 	
 	public function uploadImg($typeImg = "promoteUrl", $fileDir = "slide"){
 
+
 		// Check post_max_size (http://us3.php.net/manual/en/features.file-upload.php#73762)
 		$POST_MAX_SIZE = ini_get('post_max_size');
 		$unit = strtoupper(substr($POST_MAX_SIZE, -1));
@@ -19,7 +20,7 @@ class Upload {
 		$save_path = getcwd() . "/upload/{$fileDir}/";				// The path were we will save the file (getcwd() may not be reliable and should be tested in your environment)
 		
 		$upload_name = "Filedata";
-		$max_file_size_in_bytes = 1048576;				// 2GB in bytes
+		$max_file_size_in_bytes = 3145728;				// 3M in bytes
 		$extension_whitelist = array("jpg", "gif", "png", "jpeg");	// Allowed file extensions
 		$valid_chars_regex = '.A-Z0-9_ !@#$%^&()+={}\[\]\',~`-';				// Characters allowed in the file name (in a Regular Expression format)
 		
