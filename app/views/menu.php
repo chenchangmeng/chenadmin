@@ -106,6 +106,9 @@ em{
 		<li class="<?php if($CCName == 'UserController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('user/user-index'); ?>">用户列表</a>
 		</li>
+		<li class="<?php if($CCName == 'MemberController'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('member/member-index'); ?>">会员管理</a>
+		</li>
 		<li class="">
 			<a href="javascript:void(0);">我的信息</a>
 		</li>
