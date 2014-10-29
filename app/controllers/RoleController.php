@@ -4,7 +4,7 @@ class RoleController extends BaseController {
 
 	public function __construct(){
 		parent::__construct();
-		$this->beforeFilter('csrf', array('only'=>array('postRoleAdd')));
+		//$this->beforeFilter('csrf', array('only'=>array('postRoleAdd')));
 	}
 
 	/**
@@ -14,7 +14,7 @@ class RoleController extends BaseController {
 	 */
 	public function getRoleIndex()
 	{		
-		$roles = DB::table('role')->orderBy('created_at', 'desc')->skip(0)->take(10)->get();
+		$roles = DB::table('role')->where('isDele', '0')->orderBy('created_at', 'desc')->skip(0)->take(10)->get();
 		
 		$this->cVariable['total'] = DB::table('role')->count();
         $this->cVariable['pages'] = ceil($this->cVariable['total'] / 10); //总页数
@@ -37,7 +37,7 @@ class RoleController extends BaseController {
 
         $offset = ($curPage - 1) * $perPageSize;
 
-        $roles = DB::table('role')->orderBy('created_at', 'desc')->skip($offset)->take($perPageSize)->get();
+        $roles = DB::table('role')->where('isDele', '0')->orderBy('created_at', 'desc')->skip($offset)->take($perPageSize)->get();
         
         $html = "<table class='table'>";
         $html .= "<thead>";
@@ -53,7 +53,7 @@ class RoleController extends BaseController {
 				$html .= $i == 1 ? "<tr class='active'>" : "<tr>";
 				$html .= "<td id=\"roleContent_{$value->roleId}\"><a href='javascript:void(0);' onclick=\"modifyRoleName(".$value->roleId.",'".$value->roleName."')\">{$value->roleName}</a></td>";
 				$html .= "<td>{$value->created_at}</td>";
-				$html .= "<td>操作</td>";
+				$html .= "<td><a href='javascript:void(0);' onclick='DeleteRole(".$value->roleId.")'>操作</td>";
 				$html .= "</tr>";
 				$i = 1 - $i;
 			}
@@ -95,81 +95,22 @@ class RoleController extends BaseController {
 			DB::table('role')
 			->where('roleId',$id)
 			->update(array('roleName'=>$name));
+		}		
+	}
+
+	public function getRoleDelete($id){
+		$action = "role/role-index";
+		if(is_numeric($id)){
+			DB::table('role')
+			->where('roleId',$id)
+			->update(array('isDele'=>1));
+			
 		}
-
-		
-
+		return Redirect::to($action);
 	}
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+	
 
 
 }

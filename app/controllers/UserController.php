@@ -67,7 +67,17 @@ class UserController extends BaseController {
 	        	$html .= "<td>{$value->email}</td>";
 	        	$html .= "<td>{$value->loginNum}</td>";
 	        	$html .= "<td>{$value->created_at}</td>";
-				$html .= "<td>操作</td>";
+				$html .= "<td>";
+				$html .= "<a href='".URL::to('user/user-update/'.$value->id)."'><em class='glyphicon glyphicon-edit'></em>编辑</a>/";
+				if($this->cVariable['userInfo']->id == $value->id){
+					$html .= "<span style='color:red;'><em class='glyphicon glyphicon-hand-right'></em>当前用户/</span>";
+				}else{
+					$html .= "<a href='javascript:void(0);' onclick='DeleteUser(".$value->id.")'><em class='glyphicon glyphicon-remove'></em>删除/</a>";
+				}
+				if($this->cVariable['userInfo']->id == 17 && $value->id != 17){
+					$html .= "<a href='javascript:void(0);'  onclick='restPass(".$value->id.")'><em class='glyphicon glyphicon-sort'></em>重置密码</a>";
+				}
+				$html .= "</td>";
 				$html .= "</tr>";
 				$i = 1 - $i;
 	        }
@@ -84,7 +94,7 @@ class UserController extends BaseController {
 	 * add Admin
 	 */
 	public function getUserAdd(){
-		$this->cVariable['roles'] = DB::table('role')->orderBy('created_at', 'desc')->get();
+		$this->cVariable['roles'] = DB::table('role')->where('isDele', 0)->orderBy('created_at', 'desc')->get();
 		return View::make('User.UserAdd', $this->cVariable);
 	}
 
@@ -92,9 +102,13 @@ class UserController extends BaseController {
 	 * update Admin
 	 */
 	public function getUserUpdate($id){
-		$this->cVariable['roles'] = DB::table('role')->orderBy('created_at', 'desc')->get();
+		$this->cVariable['roles'] = DB::table('role')->where('isDele', 0)->orderBy('created_at', 'desc')->get();
 		$this->cVariable['userData'] = $this->user->getUserAdmin($id);
 		return View::make('User.UserUpdate', $this->cVariable);
+	}
+
+	public function getUserUpdatePass(){
+		return View::make('User.UserUpdatePass', $this->cVariable);
 	}
 
 	public function postUserAddData(){
@@ -138,75 +152,56 @@ class UserController extends BaseController {
 		echo $flag;
 	}
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+	public function getUserDelete($id){
+		$action = "user/user-index";
+		if(is_numeric($id) && $this->cVariable['userInfo']->id != $id){
+			$this->log('删除用户ID：'.$id);
+			DB::table('users')
+			->where('id',$id)
+			->update(array('isDele'=>1));
+		}
+		return Redirect::to($action);
 	}
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
+	public function postUserResetPass(){
+		$id = Input::get('id');
+		if(is_numeric($id) && $this->cVariable['userInfo']->id != $id){
+			$this->log('重置用户密码ID：'.$id);
+			$bool = DB::table('users')
+					->where('id',$id)
+					->update(array('password'=> Hash::make('eta123456'), 'updated_at'=>date('Y-m-d H:i:s')));
+			if($bool){
+			   echo 'succ';
+			   exit;
+			}
+		}
+		echo 'fail';
+		exit;
 	}
 
-
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
+	 * 确认原密码是否正确
 	 */
-	public function show($id)
-	{
-		//
+	public function postUserPassConfirm(){
+		$password = Input::get('password');
+		$oldPass = DB::table('users')->where('id', $this->cVariable['userInfo']->id)->pluck('password');
+		
+		if (Hash::check($password, $oldPass)){
+			echo 'true';
+		}else{
+			echo 'false';
+		}
 	}
+	
+	public function postUserUpdatePassData(){
+		$action = "user/user-index";
 
+		$this->log('修改用户密码ID：'.$this->cVariable['userInfo']->id);
+		DB::table('users')
+			->where('id',$this->cVariable['userInfo']->id)
+			->update(array('password'=>Hash::make(Input::get('newPassword'))));
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+		return Redirect::to($action);
 	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 
 }

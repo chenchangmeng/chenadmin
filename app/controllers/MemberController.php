@@ -121,6 +121,11 @@ class MemberController extends BaseController {
 		return Redirect::to("member/member-index");
 	}
 
+	public function getMemberSendEmail(){
+		$v = $this->member->sendEmail();
+		var_dump($v);
+	}
+
 
 	
 

@@ -61,6 +61,34 @@ class Branch extends Eloquent{
 		return $result;
 	}
 
+	public function getSloganData($offset = 0, $perPageSize = 10){
+		$condition = " ";
+
+		$sql =" SELECT
+					t1.*
+				FROM
+					eta_slogan t1
+				{$condition}
+				ORDER BY  t1.sort  DESC";
+
+		$result = DB::select($sql);
+		
+		return $result;
+	}
+
+	public function getSloganOne($id){
+		$sql =" SELECT
+					t1.*
+				FROM
+					eta_slogan t1
+				WHERE 
+					t1.id = "  . intval($id);
+
+		$result = DB::select($sql);
+
+		return $result;
+	}
+
 
 
 	private function utf8Substr($str, $from, $len){ 

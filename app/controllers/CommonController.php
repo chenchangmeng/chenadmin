@@ -1,7 +1,9 @@
 <?php
 
 class CommonController extends Controller{
-
+	public function __construct(){
+		$this->beforeFilter('csrf', array('only'=>array('dealLogin')));
+	}
 
 	public function log($message){
 		$mess = array(
@@ -36,19 +38,6 @@ class CommonController extends Controller{
 		$captcha->renderImageGD($code);
 	}
 
-
-	public function test1(){
-		$code = '222';
-		$_SESSION['test'] = 'vvv';
-		var_dump($code);
-	}
-
-	public function test2(){
-		$value = Session::get('captcha_code');
-		var_dump($value);
-		//var_dump($_SESSION['test']);
-	}
-
 	public function validateCaptcha(){
 		$value = Session::get('captcha_code');
 
@@ -67,17 +56,8 @@ class CommonController extends Controller{
 	public function dealLogin(){
 		$userName = Input::get('userName');
 		$userPass = Input::get('password');
-		// $captcha = Input::get('captcha');
-
-		// $value = Session::get('captcha_code');
-
-		// if(strtolower($value) == strtolower($captcha)){
-		// 	//验证码正确
-		// }
 
 		if (Auth::attempt(array('userName' => $userName, 'password' => $userPass), false)){
-    		//return Redirect::intended('dashboard');
-    		//var_dump($queries = DB::getQueryLog());
     		
     		DB::table('users')->where('id', Auth::user()->id)->update(array('loginNum' => Auth::user()->loginNum+1));
     		
@@ -90,6 +70,7 @@ class CommonController extends Controller{
 
 			return Redirect::to("news/news-index");
 		}else{
+			Session::flash('loginMsg', '用户名或密码错误！');
 			return Redirect::to("login");
 		}
 	}

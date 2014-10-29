@@ -105,7 +105,16 @@
 								<td><?php echo $value->created_at; ?></td>
 								<td>
 									<a href="<?php echo URL::to('user/user-update/'.$value->id); ?>"><em class="glyphicon glyphicon-edit"></em>编辑</a>/
-									<a href=""><em class='glyphicon glyphicon-remove'></em>删除</a>
+									<?php if($userInfo->id == $value->id){ ?>
+										<span style="color:red;"><em class="glyphicon glyphicon-hand-right"></em>当前用户/</span>
+										<a href="<?php echo URL::to('user/user-update-pass'); ?>"><em class="glyphicon glyphicon-pencil"></em>修改密码</a>
+									<?php }else{ ?>
+										<a href="javascript:void(0);" onclick="DeleteUser(<?php echo $value->id; ?>)"><em class='glyphicon glyphicon-remove'></em>删除/</a>
+									<?php } ?>
+									<?php if($userInfo->id == 17 && $value->id != 17){ ?>
+										<a href="javascript:void(0);" onclick='restPass(<?php echo $value->id; ?>)'><em class="glyphicon glyphicon-sort"></em>重置密码</a>
+									<?php } ?>
+									
 								</td>
 							</tr>
 							<?php $i = 1 - $i; ?>
@@ -170,6 +179,28 @@ pagelist.pageCallback = function(data){
 		pagelist.pageCount = data.page_count;
 	//}
 	//console.log(pagelist.filter["page"]);
+}
+
+function DeleteUser(id){
+	if(confirm("确定要删除该用户吗？")){
+		window.location.href = "<?php echo URL::to('user/user-delete/'); ?>/" + id;
+	}
+}
+
+function restPass(id){
+	$.ajax({
+		type : "POST",
+		url : "<?php echo URL::to('user/user-reset-pass'); ?>",
+		async : false,
+		data : {id:id},
+		success : function(data){
+			if(data == "succ"){
+				alert("重置成功！");
+			}else{
+				alert("重置失败！");
+			}
+		}
+	});
 }
 
 function trim(str){ //删除左右两端的空格    

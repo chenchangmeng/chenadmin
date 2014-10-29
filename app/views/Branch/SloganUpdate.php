@@ -19,7 +19,6 @@
 	<?php echo HTML::script('js/scripts.js'); ?>
 	<?php echo HTML::script('js/ajax.js'); ?>
 	<?php echo HTML::script('js/page.js'); ?>
-	
 </head>
 
 <body>
@@ -42,7 +41,7 @@
 					<a href="javascript:void(0);">内容管理</a> 
 				</li>
 				<li class="active">
-					分支机构添加
+					名人名言修改
 				</li>
 			</ul>	
 
@@ -54,22 +53,25 @@
 					
 				</div>
 			</div>
-			<?php echo Form::open(array('url' => 'branch/branch-add-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'branch_add_form'));  ?>
+			<?php echo Form::open(array('url' => 'branch/slogan-update-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'slogan_update_form'));  ?>
+			<input type="hidden" id="id" name="id" value="<?php echo $resultData[0]->id; ?>" />
 				<div class="form-group">
-					<label for="branchName" class="col-sm-2 control-label">名称：</label>
-					<div class="col-xs-7" id="branchName_mess">
-						<input type="text" class="form-control operate-form" maxlength="32" name="branchName" id="branchName" />
+					<label for="name" class="col-sm-2 control-label">姓名：</label>
+					<div class="col-xs-7" id="name_mess">
+						<input type="text" value="<?php echo $resultData[0]->name; ?>" class="form-control operate-form" maxlength="32" name="name" id="name" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="real_name" class="col-sm-2 control-label"></label>
-					<input type="hidden"  name="branchUrl" id="branchUrl" value="">
+					<label for="sloganUrl" class="col-sm-2 control-label"></label>
+					<input type="hidden"  name="sloganUrl" id="sloganUrl"  value="<?php echo $resultData[0]->sloganUrl; ?>">
 					<div class="col-xs-7" id="real_name_mess">
-						<div id="branchDiv" class="row clearfix">
+						<div id="sloganDiv" class="row clearfix">
 							<div  class="col-md-10 column">
 								<div class="fieldset partner" id="fsUploadProgress">
-									<span class="legend">Branch Logo</span>
+									<span class="legend">Slogan Logo</span>
+												<div class="progressWrapper" id="sloganUrlID" style="opacity: 1;"><div class="progressContainer blue"><a class="progressCancel" href="#" style="visibility: hidden;"> </a><div></div><div class="progressBarStatus"><img id="sloganUrlDivImg" src="<?php echo $resultData[0]->sloganUrl; ?>" height="80" width="180" alt=""></div><div class="progressBarComplete"></div></div></div>
+
 								</div>
 							</div>
 							<div class="col-md-2 column" >
@@ -81,58 +83,39 @@
 				</div>
 
 				<div class="form-group">
-					<label for="code" class="col-sm-2 control-label">邮编：</label>
-					<div class="col-xs-7" id="code_mess">
-						<input type="text" class="form-control operate-form" maxlength="20" name="code" id="code" />
+					<label for="position" class="col-sm-2 control-label">职位：</label>
+					<div class="col-xs-7" id="position_mess">
+						<input type="text" value="<?php echo $resultData[0]->position; ?>" class="form-control operate-form" maxlength="50" name="position" id="position" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="mobile" class="col-sm-2 control-label">电话：</label>
-					<div class="col-xs-7" id="mobile_mess">
-						<input type="text" class="form-control operate-form" maxlength="20" name="mobile" id="mobile" />
+					<label for="company" class="col-sm-2 control-label">公司：</label>
+					<div class="col-xs-7" id="company_mess">
+						<input type="text" value="<?php echo $resultData[0]->company; ?>" class="form-control operate-form" maxlength="50" name="company" id="company" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="fax" class="col-sm-2 control-label">传真：</label>
-					<div class="col-xs-7" id="fax_mess">
-						<input type="text" class="form-control operate-form" maxlength="20" name="fax" id="fax" />
+					<label for="slogan" class="col-sm-2 control-label">名言：</label>
+					<div class="col-xs-7" id="slogan_mess">
+						<textarea name="slogan" id="slogan" class="form-control operate-form"><?php echo $resultData[0]->slogan; ?></textarea>
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="email" class="col-sm-2 control-label">邮箱：</label>
-					<div class="col-xs-7" id="email_mess">
-						<input type="text" class="form-control operate-form" maxlength="80" name="email" id="email" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="url" class="col-sm-2 control-label">官网：</label>
-					<div class="col-xs-7" id="url_mess">
-						<input type="text" class="form-control operate-form" maxlength="80" name="url" id="url" />
-					</div>
-				</div>
+				
 
 
 				<div class="form-group">
 					<label for="sort" class="col-sm-2 control-label">排序：</label>
 					<div class="col-xs-7" id="sort_mess">
-						<input type="text" class="form-control operate-form" maxlength="3" name="sort" id="sort" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="address" class="col-sm-2 control-label">地址：</label>
-					<div class="col-xs-7" id="address_mess">
-						<input type="text" class="form-control operate-form" maxlength="120" name="address" id="address" />
+						<input type="text" value="<?php echo $resultData[0]->sort; ?>" class="form-control operate-form" maxlength="3" name="sort" id="sort" />
 					</div>
 				</div>
 												
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-xs-5">
-						 <button type="submit" class="btn btn-success custom-news-btn">添加</button>
+						 <button type="submit" class="btn btn-success custom-news-btn">修改</button>
 					</div>
 				</div>
 			<?php echo Form::close();  ?>		
@@ -158,8 +141,8 @@ window.onload = function() {
 	var settings = {
 		flash_url : "<?php echo HTML::swf('js/swfupload/Flash/swfupload.swf'); ?>",
 		//flash_url : "http://192.168.2.70/swf/demos/swfupload/swfupload.swf",
-		upload_url: "<?php echo URL::to('branch/branch-deal-img');  ?>",
-		post_params: {"typeImg" : "branchUrl"},
+		upload_url: "<?php echo URL::to('branch/slogan-deal-img');  ?>",
+		post_params: {"typeImg" : "sloganUrl"},
 		file_size_limit : "1 MB",
 		file_types : "*.jpg;*.png;*.gif;*.jpeg;",
 		file_types_description : "All Files",
@@ -201,18 +184,15 @@ window.onload = function() {
 
 
 <script type="text/javascript">
-$("#branch_add_form").validate({
+$("#slogan_update_form").validate({
 	//debug:true,
 	rules:{		
-		branchName : {
+		name : {
 			required : true,
 			
 		},
-		email : {
-			email: true
-		},
-		url : {
-			url: true
+		slogan : {
+			required: true
 		},
 		sort : {
 			number: true
@@ -222,14 +202,11 @@ $("#branch_add_form").validate({
 		
 	},
 	messages:{
-		branchName : {
-			required : "请填写分支机构名称"
+		name : {
+			required : "请填写姓名"
 		},
-		email : {
-			email: "请填写正确的邮箱地址"
-		},
-		url : {
-			url: "请填写正确的官网Url"
+		slogan : {
+			required: "请填写名言"
 		},
 		sort: {
 			number: "请填写数字"

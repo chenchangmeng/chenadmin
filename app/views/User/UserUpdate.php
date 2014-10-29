@@ -37,7 +37,7 @@
 					<a href="javascript:void(0);">用户管理</a> 
 				</li>
 				<li class="active">
-					用户列表
+					用户修改
 				</li>
 			</ul>	
 
@@ -52,20 +52,20 @@
 			<?php echo Form::open(array('url' => 'user/user-update-data', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'user_update_form'));  ?>
 				<input type="hidden" name="id" id="id" value="<?php echo $userData[0]->id; ?>" />
 				<div class="form-group">
-					<label for="user_name" class="col-sm-2 control-label">用户名</label>
-					<div class="col-xs-4" id="user_name_mess">
+					<label for="user_name" class="col-sm-2 control-label">用户名<span class="asterisk-tip">*</span>：</label>
+					<div class="col-xs-7" id="user_name_mess">
 						<input type="text" class="form-control operate-form" maxlength="32" name="user_name" id="user_name" value="<?php echo $userData[0]->userName; ?>" />
 					</div>
 				</div>
 				<div class="form-group">
-					 <label for="real_name" class="col-sm-2 control-label">真实姓名</label>
-					<div class="col-xs-4" id="real_name_mess">
+					 <label for="real_name" class="col-sm-2 control-label">真实姓名<span class="asterisk-tip">*</span>：</label>
+					<div class="col-xs-7" id="real_name_mess">
 						<input type="text" class="form-control operate-form"  maxlength="32" name="real_name" id="real_name" value="<?php echo $userData[0]->realName; ?>" />
 					</div>
 				</div>
 				<div class="form-group">
-					 <label for="role_id" class="col-sm-2 control-label">角色组</label>
-					<div class="col-xs-4" id="role_id_mess">
+					 <label for="role_id" class="col-sm-2 control-label">角色组<span class="asterisk-tip">*</span>：</label>
+					<div class="col-xs-7" id="role_id_mess">
 						<select name="role_id" id="role_id" class="form-control operate-form">
 							<option value="">--请选择--</option>
 							<?php foreach ($roles as  $value) {  ?>
@@ -76,8 +76,8 @@
 				</div>
 
 				<div class="form-group">
-					 <label for="email" class="col-sm-2 control-label">邮箱</label>
-					<div class="col-xs-4" id="email_mess">
+					 <label for="email" class="col-sm-2 control-label">邮箱<span class="asterisk-tip">*</span>：</label>
+					<div class="col-xs-7" id="email_mess">
 						<input type="text" class="form-control operate-form"  maxlength="50" name="email" id="email" value="<?php echo $userData[0]->email; ?>" />
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 				</div> -->
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-xs-5">
-						 <button type="submit" class="btn btn-default">修改</button>
+						 <button type="submit" class="btn btn-success custom-news-btn">修改</button>
 					</div>
 				</div>
 			<?php echo Form::close();  ?>		

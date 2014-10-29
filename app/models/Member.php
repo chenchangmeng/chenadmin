@@ -237,4 +237,42 @@ class Member extends Eloquent{
 	private function HandleError($num){
 		echo $num;
 	}
+
+	public function sendEmail(){
+		$data = array(
+			'api_user' => 'postmaster@chen.sendcloud.org',
+            'api_key' => '53LkfBnHYALhbCpm',
+            'from' => 'changmengcool@gmail.com',
+            'fromname' => 'SendCloud团队',
+            'to' => '308968154@qq.com;changmengcool@163.com',
+            'subject' => 'php 调用WebAPI测试主题',
+            'html' => '欢迎使用<a href="https://sendcloud.sohu.com">SendCloud</a>',
+            //'file1' => '@/path/to/附件.png;filename=附件.png',
+            //'file2' => '@/path/to/附件2.txt;filename=附件2.txt'
+        );
+			$ch = curl_init();
+
+		    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+
+		    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		    curl_setopt($ch, CURLOPT_URL, 'https://sendcloud.sohu.com/webapi/mail.send.json');
+		    //不同于登录SendCloud站点的帐号，您需要登录后台创建发信子帐号，使用子帐号和密码才可以进行邮件的发送。
+		    curl_setopt($ch, CURLOPT_POSTFIELDS,$data);        
+            
+            $result = curl_exec($ch);
+
+            if($result === false) //请求失败
+            {
+               echo 'last error : ' . curl_error($ch);
+            }
+
+            curl_close($ch);
+
+            return $result;
+
+	}
+
+	//curl -d "api_user=postmaster@chen.sendcloud.org&api_key=53LkfBnHYALhbCpm&to=308968154@qq.com&from=changmengcool@163.com&fromname=测试用户&subject=主题&html=正文sss"
+	//curl -d "api_user=postmaster@chen.sendcloud.org&api_key=53LkfBnHYALhbCpm&to=308968154@qq.com&from=changmengcool@163.com&fromname=测试用户&subject=主题&html=正文sss" https://sendcloud.sohu.com/webapi/mail.send.json
 }

@@ -198,7 +198,7 @@
 
 									<div class="checkbox ">
 									  <label>
-									    <input type="checkbox" name="published" value="1">
+									    <input type="checkbox" name="published" checked value="1">
 									    是否发布
 									  </label>
 									</div>

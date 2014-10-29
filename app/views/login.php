@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Login1</title>
+    <title>ETA Admins</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Avant">
@@ -20,7 +20,9 @@
 <div class="verticalcenter">
 	<div class="panel panel-primary" style="border-color:#FFFFFF;">
 		<div class="panel-body">
-			<h4 class="text-center" style="margin-bottom: 25px;">Log in to get started or <a href="extras-signupform.php">Sign Up</a></h4>
+			<h4 class="text-center" style="margin-bottom: 25px;">
+				<?php echo Session::get('loginMsg') ? '<span style="color:red;">' . Session::get('loginMsg') . '</span>' : 'Log in to get started'; ?>
+			</h4>
 			<?php echo Form::open(array('url' => 'dealLogin', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'login-form', 'style'=>'margin-bottom: 0px !important;'));  ?>
 						<div class="form-group">
 							<div class="col-sm-12">

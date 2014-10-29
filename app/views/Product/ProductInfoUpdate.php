@@ -94,7 +94,7 @@
 					<label for="infoContent" class="col-sm-2 control-label">详细信息：</label>
 					<div class="col-xs-7" id="infoContent_mess">
 						<script id="infoContent" name="infoContent" type="text/plain">
-							value="<?php echo $productInfo->infoContent; ?>"
+							<?php echo $productInfo->infoContent; ?>
 					    </script>
 					     <!-- 配置文件 -->
 					    <?php echo HTML::script('js/ueditor/ueditor.config.js'); ?>

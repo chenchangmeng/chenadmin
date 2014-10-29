@@ -13,7 +13,7 @@ class BaseController extends Controller {
 	protected $cVariable = array();
 
 	public function __construct(){
-		$this->beforeFilter('auth', array('except' => array('postNewsDealImg', 'postBranchDealImg', 'postPartnerDealImg', 'postProductDealImg', 'postCustomerDealImg')));
+		$this->beforeFilter('auth', array('except' => array('postNewsDealImg', 'postBranchDealImg', 'postPartnerDealImg', 'postProductDealImg', 'postCustomerDealImg', 'postSloganDealImg')));
 	
 		//检查登录情况
 		$this->initLogin();
@@ -36,6 +36,8 @@ class BaseController extends Controller {
 		    $userInfo = Session::get('userInfo');
 
 		    $this->cVariable['userInfo'] = unserialize($userInfo);
+
+		    //var_dump($this->cVariable['userInfo']->id);
 		}else{
 			return Redirect::guest('login');
 		}
@@ -46,13 +48,19 @@ class BaseController extends Controller {
 	 */
 	private function initTemplate(){
 		$this->cVariable['header'] = View::make('header');
-		$this->cVariable['menu'] = View::make('menu', $this->cVariable);
+		$this->cVariable['menu'] = View::make('menu1', $this->cVariable);
 		$this->cVariable['footer'] = View::make('footer');
 	}
 
 	private function initCController(){
 		$CCName = Route::currentRouteAction();
+
 		$CCName = substr($CCName, 0, stripos($CCName, '@', 0));
+		$this->cVariable['currentC'] = $CCName;
+		if(in_array($CCName, array('BranchController', 'PartnerController', 'CareerController'))){
+			$this->cVariable['currentC'] = 'EtaController';
+		}
+
 		$UPath = Request::path();
 		if(stripos($UPath, '/', 0) !== false){
 		   $UArr = explode('/', $UPath);

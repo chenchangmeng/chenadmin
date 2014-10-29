@@ -9,6 +9,18 @@
 	<?php echo HTML::style('css/bootstrap.css'); ?>
 	<?php echo HTML::style('css/style.css'); ?>
 	<?php echo HTML::style('css/theme-element.css'); ?>
+
+	<?php echo HTML::script('js/jquery.min.js'); ?>
+	<?php echo HTML::script('js/jquery.validate.js'); ?>
+
+
+	<?php echo HTML::script('js/bootstrap.min.js'); ?>
+	<?php echo HTML::script('js/scripts.js'); ?>
+
+
+
+	<?php echo HTML::script('js/theme.plugins.js'); ?>
+	<?php echo HTML::script('js/theme.js'); ?>
 	
 	<?php echo HTML::script('js/ajax.js'); ?>
 	<?php echo HTML::script('js/page.js'); ?>
@@ -103,17 +115,7 @@
 </div>
 
 </body>
-<?php echo HTML::script('js/jquery.min.js'); ?>
-<?php echo HTML::script('js/jquery.validate.js'); ?>
 
-
-<?php echo HTML::script('js/bootstrap.min.js'); ?>
-<?php echo HTML::script('js/scripts.js'); ?>
-
-
-
-<?php echo HTML::script('js/theme.plugins.js'); ?>
-<?php echo HTML::script('js/theme.js'); ?>
 
 <script type="text/javascript"> 
 

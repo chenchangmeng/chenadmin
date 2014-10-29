@@ -41,20 +41,22 @@
 			</ul>	
 
 			<div class="row clearfix">
-				<div class="col-md-7 column">
+				<div class="col-md-8 column">
 					
 				</div>
-				<div class="col-md-5 column" >
+				<div class="col-md-4 column" >
 					<?php echo Form::token(); ?>
-					<div class="form-group" >
-						<div class="col-xs-7" style="margin-left:50px;">
+					<div class="form-group" style="float:rtght;margin-bottom:-5px;">
+						<div class="col-xs-7" style="">
 							<input type="text" name="roleName" maxlength="50" class="form-control" id="roleName">					
 						</div>
-						<a href="javascript:void(0);" onclick="postRole()" class="btn btn-primary btn-custom">
-							<em class='glyphicon glyphicon-plus'><?php echo Lang::get('admin.aRoleAdd'); ?></em>
-						</a>
+						
 					</div>
+					<a href="javascript:void(0);" style="float:rtght;" onclick="postRole()" class="btn btn-primary btn-custom">
+						<em class='glyphicon glyphicon-plus'>添加角色</em>
+					</a>
 				</div>
+				
 			</div>
 
 			<div id="list_content_div">
@@ -80,7 +82,7 @@
 									<a href="javascript:void(0);" onclick='modifyRoleName(<?php echo $value->roleId; ?>,"<?php echo $value->roleName; ?>")'><?php echo $value->roleName; ?></a>
 								</td>
 								<td><?php echo $value->created_at; ?></td>
-								<td><a href="javascript:void(0);">删除</a></td>
+								<td><a href="javascript:void(0);" onclick="DeleteRole(<?php echo $value->roleId; ?>)">删除</a></td>
 							</tr>
 							<?php $i = 1 - $i; ?>
 						<?php }  ?>
@@ -172,16 +174,16 @@ function updateRoleName(id, name){
 
 
 function postRole(){
-	var _token = $("input[name='_token']").val();
+	//var _token = $("input[name='_token']").val();
 	var roleName = trim($("input[name='roleName']").val());
 	
 	var reg = /^[\u4E00-\u9FA5 a-zA-Z]+$/;
-	if(reg.test(roleName) && _token != "" ){
+	if(reg.test(roleName) ){
 		$.ajax({
 			type : "POST",
 			url : "<?php echo URL::to('role/role-add'); ?>",
 			async : false,
-			data : {_token : _token, roleName:roleName},
+			data : { roleName:roleName},
 			success : function(data){
 				if(data == "succ"){
 					pagelist.filter["page"] = 1;
@@ -194,6 +196,12 @@ function postRole(){
 		});
 	}else{
 		alert('请输入正确格式的角色名称!');
+	}
+}
+
+function DeleteRole(id){
+	if(confirm("确定要删除该内容吗？")){
+		window.location.href = "<?php echo URL::to('role/role-delete/'); ?>/" + id;
 	}
 }
 </script>

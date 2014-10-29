@@ -143,4 +143,98 @@ class BranchController extends BaseController {
 		exit(0);
 	}
 
+	/**
+	 * 名人箴言
+	 */
+	public function getSloganIndex(){
+		$this->cVariable['sloganData'] = $this->branch->getSloganData();
+		return View::make('Branch.SloganIndex', $this->cVariable);
+	}
+
+	public function getSloganAdd(){
+		return View::make('Branch.SloganAdd', $this->cVariable);
+	}
+
+	public function getSloganUpdate($id){
+		$resultData = $this->branch->getSloganOne($id);
+		if(empty($resultData)){
+			return Redirect::to("branch/slogan-index");
+		}
+		$this->cVariable['resultData'] = $resultData;
+		return View::make('Branch.SloganUpdate', $this->cVariable);
+	}
+
+	public function postSloganAddData(){
+		//xss 过滤
+		$xss = new Xss;
+
+		$sloganInfo = array(
+			'name' => $xss->clean(Input::get('name')),
+			'sloganUrl' => Input::get('sloganUrl'),
+			'position' =>  $xss->clean(Input::get('position')),
+			'company' =>  $xss->clean(Input::get('company')),
+			'slogan' =>  $xss->clean(Input::get('slogan')),
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s'),
+			'sort' => (int)Input::get('sort')
+		);
+		$action = "branch/slogan-index";
+		$insertId = DB::table('slogan')->insertGetId($sloganInfo);
+		$this->log('添加名人名言：'.$sloganInfo['name']);
+
+		if(!$insertId){
+			$action = "branch/slogan-add";
+		}
+
+		return Redirect::to($action);
+	}
+
+	public function postSloganUpdateData(){
+		//xss 过滤
+		$xss = new Xss;
+		$id = Input::get('id');
+		$sloganInfo = array(
+			'name' => $xss->clean(Input::get('name')),
+			'sloganUrl' => Input::get('sloganUrl'),
+			'position' =>  $xss->clean(Input::get('position')),
+			'company' =>  $xss->clean(Input::get('company')),
+			'slogan' =>  $xss->clean(Input::get('slogan')),
+			'updated_at' => date('Y-m-d H:i:s'),
+			'sort' => (int)Input::get('sort')
+		);
+		$action = "branch/slogan-index";
+		$bool = DB::table('slogan')
+		            ->where('id', $id)
+		            ->update($sloganInfo);
+		$this->log('修改名人名言：'.$sloganInfo['name']);
+
+		if(!$bool){
+			$action = "branch/slogan-update/".intval($id);
+		}
+
+		return Redirect::to($action);
+	}
+
+	public function getSloganDelete($id){
+		$action = "branch/slogan-index";
+		if(is_numeric($id)){
+			$bool = DB::table('slogan')->where('id', '=', $id)->delete();
+			if($bool){				
+				//$this->log('删除分支机构：'.$newsData[0]->branchName);
+			}
+		}
+		return Redirect::to($action);
+	}
+
+	public function postSloganDealImg(){
+		$typeImg = Input::get('typeImg');
+
+		$upload = new Upload;
+		//var_dump('expression');
+		//var_dump($_FILES);
+		//echo 'aaa';
+		$upload->uploadImg($typeImg, "slogan");
+		exit(0);
+	}
+
 }

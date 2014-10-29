@@ -55,7 +55,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		// 			})
 		// 			->count();
 		// return $count;
-		$condition = "WHERE isDele = 0 ";
+		$condition = "WHERE t1.isDele = 0 ";
 		if($sRealName){
 		   $condition .= " AND realName LIKE '%".$sRealName."%' ";
 		}
@@ -85,7 +85,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		// 			->take(10)
 		// 			->get();
 		// return $user;
-		$condition = "WHERE isDele = 0 ";
+		$condition = "WHERE t1.isDele = 0 ";
 		if($sRealName){
 		   $condition .= " AND realName LIKE '%".$sRealName."%' ";
 		}
