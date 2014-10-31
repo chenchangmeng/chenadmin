@@ -310,8 +310,8 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 <?php echo HTML::script('js/ace.min.js'); ?>
 <div class="col-xs-2 column sidebar" style="padding-left:2px;padding-top:4px;padding-right:0px;" >
 	<ul class="nav nav-list">
-		<li class="">
-			<a href="">
+		<li class="<?php if($currentC == 'DashboardController'){echo 'active';} ?>">
+			<a href="<?php echo URL::to('dashboard/dashboard-index'); ?>">
 				<em class="glyphicon glyphicon-dashboard"></em>
 				<span class="menu-text"> 控制台 </span>
 			</a>
@@ -322,7 +322,7 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 				<em class="glyphicon glyphicon-comment"></em>
 				<span class="menu-text"> 关于ETA </span>
 
-				<b class="arrow icon-angle-down">∨</b>
+				<b class="arrow icon-angle-down"></b>
 			</a>
 			<ul class="submenu">
 
@@ -479,6 +479,12 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 						导出
 					</a>
 				</li>
+				<li>
+					<a href="<?php echo URL::to('member/member-send-email'); ?>">
+						<i class="icon-double-angle-right"></i>
+						邮件群发
+					</a>
+				</li>
 			</ul>
 		</li>
 
@@ -498,13 +504,13 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="<?php echo URL::to('user/user-update/'.$userInfo->id); ?>">
 						<i class="icon-double-angle-right"></i>
 						我的信息
 					</a>
 				</li>
 				<li>
-					<a href="">
+					<a href="<?php echo URL::to('user/user-update-pass'); ?>">
 						<i class="icon-double-angle-right"></i>
 						我的密码
 					</a>

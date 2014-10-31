@@ -182,18 +182,6 @@ function trim(str){ //删除左右两端的空格
      return str.replace(/(^\s*)|(\s*$)/g, "");    
 } 
 
-function exportMember(){
-	var email = $("#email").val();
-	var fromType = $("#fromType").val();
-	var memberType = $("#memberType").val();
-	 ajax.post("<?php echo URL::to('member/deal-member-export/'); ?>", exportCallback,"email="+email+"&fromType="+fromType+"&memberType="+memberType);
-	//window.location.href = "<?php echo URL::to('member/member-export/'); ?>/" + email + '/' + fromType + '/' + memberType;
-}
-
-function exportCallback(data){
-	console.log(data);
-}
-
 function DeletePartner(id){
 	if(confirm("确定要删除该内容吗？")){
 		window.location.href = "<?php echo URL::to('partner/partner-delete/'); ?>/" + id;

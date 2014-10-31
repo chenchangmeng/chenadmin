@@ -52,12 +52,12 @@
 				</div>
 			</div>
 			<?php echo Form::open(array('url' => 'member/deal-member-export', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'member_import_form'));  ?>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="email" class="col-sm-2 control-label">Email：</label>
 					<div class="col-xs-7" id="email_mess">
 						<input type="text" class="form-control operate-form" maxlength="80" name="email" id="email" />
 					</div>
-				</div>	
+				</div>	 -->
 				<div class="form-group">
 					 <label for="memberType" class="col-sm-2 control-label">会员类别：</label>
 					 <div class="col-xs-7" id="memberType_mess">

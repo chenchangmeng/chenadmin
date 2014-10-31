@@ -54,3 +54,7 @@ Route::controller("customer", "CustomerController");
 Route::controller("download", "DownloadController");
 
 Route::controller("member", "MemberController");
+
+Route::controller("dashboard", "DashboardController");
+
+Route::controller("email", "EmailController");

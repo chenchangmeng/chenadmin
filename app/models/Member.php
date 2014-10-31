@@ -1,5 +1,14 @@
 <?php
 class Member extends Eloquent{
+
+	/**
+	 * 发信域名子账号
+	 */
+	private $api_user = "postmaster@chen.sendcloud.org";
+	/**
+	 * key值
+	 */
+	private $api_key = "53LkfBnHYALhbCpm";
 	
 	public function getMemberCount($query = array()){
 		$condition = "WHERE isDele = 0 ";
@@ -56,6 +65,133 @@ class Member extends Eloquent{
 		$result = DB::select($sql);
 		
 		return $result;
+	}
+
+	public function getMemberTypeData($memberType){
+		$memberTypeData = "";
+		if($memberType){
+			$sql = "SELECT id, email FROM eta_member WHERE memberType = '".$memberType."'";
+			$result = DB::select($sql);
+			if(!empty($result)){
+				foreach ($result as $value) {
+					$memberTypeData .= "<option value='".$value->id."' onclick='selectValue(this.value, this.text)'>".$value->email."</option>";
+				}
+			}
+		}
+		return $memberTypeData;
+	}
+
+	/**
+	 * 获取收取人列表
+	 */
+	public function getToEmailData($memberTypeEmail = '', $ids = ''){
+		$data = '';
+		$sql = "SELECT 
+					email
+				FROM 
+					eta_member
+				WHERE memberType = '".$memberTypeEmail."' 
+				OR id in({$ids}) ";
+		$result = DB::select($sql);
+		if(!empty($result)){
+			foreach ($result as $value) {
+				$data .= $value->email.';';
+			}
+		}
+		return $data;
+	}
+
+	/**
+	 * 处理邮件附件问题
+	 */
+	public function getAttachment(){
+		$attachmentFile = array();
+		$destinationPath = getcwd() . "/upload/email/";
+		for($i=1;$i<3;$i++){
+			$uploadName = 'etaFile'.$i;
+		    //是否存在上传文件
+			if(Input::hasFile($uploadName)){
+			   //检查文件是否合法
+			   if(Input::file($uploadName)->isValid()){
+			   		//检查文件大小
+			   	    $size = Input::file($uploadName)->getSize();
+			   	    if($size >= 10485760){
+			   	       //大于10M
+			   	       break;
+			   	    }
+			   	    //移动文件
+			   	    $name = Input::file($uploadName)->getClientOriginalName();
+			   	    Input::file($uploadName)->move($destinationPath, $name);
+			   	    
+			   	    $attachmentFile['file'.$i] = '@' .$destinationPath . $name . ';filename=' . $name;
+			   }else{
+			   	  break;
+			   }
+
+			}else{
+			   break;
+			}
+		}
+
+		return $attachmentFile;
+	}
+
+	/**
+	 * 发送邮件
+	 */
+	public function sendEmail($toEmailData, $subject, $fromEmailName, $fromEmail, $content, $attachmentFile=array()){
+		$data = array(
+			'api_user' => $this->api_user,
+            'api_key' => $this->api_key,
+            'from' =>  $fromEmail,
+            'fromname' => $fromEmailName,
+            'to' => 'eta@eta.com.cn',
+            'bcc' => $toEmailData,
+            'subject' => $subject,
+            'html' => $content,
+            //'file1' => '@/path/to/附件.png;filename=附件.png',
+            //'file2' => '@/path/to/附件2.txt;filename=附件2.txt'
+        );
+        //添加附件
+        if(!empty($attachmentFile)){
+        	foreach ($attachmentFile as $key => $value) {
+        		$data[$key] = $value;
+        	}
+        }
+        $this->logEmailError('parama', serialize($data));
+		$ch = curl_init();
+
+	    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+
+	    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+	    curl_setopt($ch, CURLOPT_URL, 'https://sendcloud.sohu.com/webapi/mail.send.json');
+	    //不同于登录SendCloud站点的帐号，您需要登录后台创建发信子帐号，使用子帐号和密码才可以进行邮件的发送。
+	    curl_setopt($ch, CURLOPT_POSTFIELDS,$data);        
+        
+        $result = curl_exec($ch);
+
+        if($result === false) //请求失败
+        {
+           echo 'last error : ' . curl_error($ch);
+        }
+
+        curl_close($ch);
+
+        return $result;
+
+	}
+
+	/**
+	 * 记录邮件错误日志
+	 */
+	public function logEmailError($msg = 'error', $info=''){
+		$data = array(
+			'status' => $msg,
+			'info' => $info,
+			'created_at' => date('Y-m-d H:i:s')
+		);
+		DB::table('email_error_log')->insertGetId($data);
 	}
 
 
@@ -236,41 +372,6 @@ class Member extends Eloquent{
 
 	private function HandleError($num){
 		echo $num;
-	}
-
-	public function sendEmail(){
-		$data = array(
-			'api_user' => 'postmaster@chen.sendcloud.org',
-            'api_key' => '53LkfBnHYALhbCpm',
-            'from' => 'changmengcool@gmail.com',
-            'fromname' => 'SendCloud团队',
-            'to' => '308968154@qq.com;changmengcool@163.com',
-            'subject' => 'php 调用WebAPI测试主题',
-            'html' => '欢迎使用<a href="https://sendcloud.sohu.com">SendCloud</a>',
-            //'file1' => '@/path/to/附件.png;filename=附件.png',
-            //'file2' => '@/path/to/附件2.txt;filename=附件2.txt'
-        );
-			$ch = curl_init();
-
-		    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-
-		    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-		    curl_setopt($ch, CURLOPT_URL, 'https://sendcloud.sohu.com/webapi/mail.send.json');
-		    //不同于登录SendCloud站点的帐号，您需要登录后台创建发信子帐号，使用子帐号和密码才可以进行邮件的发送。
-		    curl_setopt($ch, CURLOPT_POSTFIELDS,$data);        
-            
-            $result = curl_exec($ch);
-
-            if($result === false) //请求失败
-            {
-               echo 'last error : ' . curl_error($ch);
-            }
-
-            curl_close($ch);
-
-            return $result;
-
 	}
 
 	//curl -d "api_user=postmaster@chen.sendcloud.org&api_key=53LkfBnHYALhbCpm&to=308968154@qq.com&from=changmengcool@163.com&fromname=测试用户&subject=主题&html=正文sss"

@@ -100,12 +100,12 @@ class MemberController extends BaseController {
 	}
 
 	public function postDealMemberExport(){
-		$xss = new Xss;
+		//$xss = new Xss;
 		$query = array();
 
-		$email = $this->str_escape(Input::get('email'));
+		//$email = $this->str_escape(Input::get('email'));
 
-		$query['email'] = $xss->clean($email);
+		//$query['email'] = $xss->clean($email);
 		$query['fromType'] = Input::get('fromType');
 		$query['memberType'] = Input::get('memberType');
 
@@ -122,8 +122,55 @@ class MemberController extends BaseController {
 	}
 
 	public function getMemberSendEmail(){
-		$v = $this->member->sendEmail();
-		var_dump($v);
+		$con = DB::table('basic')->where('type', 'dashboard')->first();
+		//反序列化
+		$this->cVariable['content'] = unserialize($con->content);
+		
+		$this->cVariable['memberTypeData'] = $this->member->getMemberType();
+		return View::make('Member.MemberSendEmail', $this->cVariable);
+	}
+
+	//处理邮件群发
+	public function postDealMemberSend(){
+		//需要发送邮件的ID
+		$ids = Input::get("ids");
+		//需要发送邮件的类型
+		$memberTypeEmail = Input::get("memberTypeEmail");
+
+		$toEmailData = $this->member->getToEmailData($memberTypeEmail, $ids);
+		
+		$subject = Input::get("subject");
+		//发件人
+		$fromEmailName = Input::get("fromEmailName");
+		//from
+		$fromEmail = trim(Input::get("fromEmail"));
+
+		$content = trim(Input::get("content"));
+		// echo "<pre>";
+		// var_dump($content);
+		// echo "</pre>";
+
+		//处理上传的附件
+		$attachmentFile = $this->member->getAttachment();
+
+		$info = $this->member->sendEmail($toEmailData, $subject, $fromEmailName, $fromEmail, $content, $attachmentFile);
+
+		$msg = json_decode($info);
+		if($msg->message == "error"){
+		   //发送失败
+		   Session::flash('sendEmailFail', isset($msg->errors[0])?$msg->errors[0]:'发送失败');
+		}
+		$this->member->logEmailError($msg->message, $info);
+		return Redirect::to("member/member-send-email");
+	}
+
+	/**
+	 * ajax获取当前分类下面所有的邮件
+	 */
+	public function postMemberTypeData(){
+		$memberType = Input::get('memberType');
+
+		echo $this->member->getMemberTypeData($memberType);
 	}
 
 
@@ -131,3 +178,4 @@ class MemberController extends BaseController {
 
 
 }
+;

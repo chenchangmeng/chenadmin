@@ -45,7 +45,7 @@
 					
 		</div>
 		<div class="panel-footer">
-			<a href="extras-forgotpassword.php" class="pull-left btn btn-link" style="padding-left:0">忘记密码?</a>
+			<a href="javascript:void(0);" class="pull-left btn btn-link" style="padding-left:0"></a>
 			
 			<div class="pull-right">
 				<a href="javascript:void(0);" onclick="resetForm()" class="btn btn-default">重置</a>

@@ -34,7 +34,7 @@
 	<div class="col-xs-8 column" >
 		<div style="float:right;">
 			<span><a href="#">前台首页</a></span>
-			<span><a href="#">修改密码</a></span>
+			<span><a href="<?php echo URL::to('user/user-update-pass'); ?>">修改密码</a></span>
 			<span><a href="<?php echo URL::current();  ?>">刷新</a></span>
 			<span><a href="<?php echo URL::to('dealLoginOut');  ?>">退出系统</a></span>
 		</div>

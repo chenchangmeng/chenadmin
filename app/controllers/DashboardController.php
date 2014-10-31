@@ -1,86 +1,33 @@
 <?php
 
-class DashboardController extends \BaseController {
+class DashboardController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getDashboardIndex()
 	{
-		//
+		$con = DB::table('basic')->where('type', 'dashboard')->first();
+		//反序列化
+		$this->cVariable['id'] = $con->id;
+		$this->cVariable['content'] = unserialize($con->content);
+		return View::make('Dashboard.DashboardIndex', $this->cVariable);
 	}
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+	public function postDashboardConfigData(){
+		$data = Input::all();
+		$con = serialize($data);
+		$config = array(
+			'type' => 'dashboard',
+			'content' => $con,
+			'updated_at' => date('Y-m-d H:i:s')
+		);
+		$bool = DB::table('basic')
+		            ->where('id', intval(Input::get('id')))
+		            ->update($config);
+		return Redirect::to("dashboard/dashboard-index");
 	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 
 }
