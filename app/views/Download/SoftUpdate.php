@@ -97,7 +97,7 @@
 				<div class="form-group">
 					<label for="softPublishDate" class="col-sm-2 control-label">发布时间：</label>
 					<div class="col-xs-7" id="softPublishDate_mess">
-						<input type="text" class="form-control operate-form"  name="softPublishDate" id="softPublishDate" value="<?php echo $currData[0]->softPublishDate; ?>">
+						<input type="text" class="form-control operate-form" readonly="readonly"  name="softPublishDate" id="softPublishDate" value="<?php echo $currData[0]->softPublishDate; ?>">
 					</div>
 				</div>
 				

@@ -12,6 +12,20 @@
 
 	<?php echo HTML::style('css/jquery-ui.css'); ?>
 
+	<?php echo HTML::script('js/jquery.min.js'); ?>
+	<?php echo HTML::script('js/jquery.validate.js'); ?>
+	<?php echo HTML::script('js/bootstrap.min.js'); ?>
+	<?php echo HTML::script('js/scripts.js'); ?>
+
+	<?php echo HTML::script('js/jquery-ui.min.js'); ?>
+
+
+	<?php echo HTML::script('js/swfupload/swfupload.js'); ?>
+
+	<?php echo HTML::script('js/swfupload/js/swfupload.queue.js'); ?>
+	<?php echo HTML::script('js/swfupload/js/fileprogress.js'); ?>
+	<?php echo HTML::script('js/swfupload/js/handlers.js'); ?>
+
 </head>
 
 <body>
@@ -224,19 +238,6 @@
 	<!-- footer html-->
 	<?php echo $footer; ?>
 </div>
-<?php echo HTML::script('js/jquery.min.js'); ?>
-<?php echo HTML::script('js/jquery.validate.js'); ?>
-<?php echo HTML::script('js/bootstrap.min.js'); ?>
-<?php echo HTML::script('js/scripts.js'); ?>
-
-<?php echo HTML::script('js/jquery-ui.min.js'); ?>
-
-
-<?php echo HTML::script('js/swfupload/swfupload.js'); ?>
-
-<?php echo HTML::script('js/swfupload/js/swfupload.queue.js'); ?>
-<?php echo HTML::script('js/swfupload/js/fileprogress.js'); ?>
-<?php echo HTML::script('js/swfupload/js/handlers.js'); ?>
 
 <script type="text/javascript">
 var swfu;

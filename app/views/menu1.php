@@ -462,9 +462,15 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 
 			<ul class="submenu">
 				<li>
-					<a href="<?php echo URL::to('member/member-index'); ?>">
+					<a href="<?php echo URL::to('member/member-info'); ?>">
 						<i class="icon-double-angle-right"></i>
 						会员列表
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo URL::to('member/member-index'); ?>">
+						<i class="icon-double-angle-right"></i>
+						邮件列表
 					</a>
 				</li>
 				<li>

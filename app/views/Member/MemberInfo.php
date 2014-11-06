@@ -36,47 +36,11 @@
 					<a href="javascript:void(0);">内容管理</a> 
 				</li>
 				<li class="active">
-					邮件列表
+					会员列表
 				</li>
 			</ul>	
 
 			<div class="row clearfix">
-				<div class="col-xs-8 column">
-					<form class="navbar-form navbar-left navbar-custom"  role="search" action="javascript:searchMember()">
-						<div class="form-group">
-							 <label for="title" class="control-label">邮箱名称：</label>
-							 <input class="form-control search-input"  type="text" maxlength="50" name="email" id="email" /><br />
-							 <label for="memberType" class="control-label">会员类别：</label>
-							 <select name="memberType" id="memberType" class="form-control search-select">
-							 	<option value="">----</option>
-							 	<?php foreach ($memberTypeData as $key => $value) { ?>
-							 		<option value="<?php echo $value->memberType; ?>"><?php echo $value->memberType; ?></option>
-							 	<?php } ?>
-							 </select>
-							 <label for="fromType" class="control-label">来源：</label>
-							 <select name="fromType" id="fromType" class="form-control search-select">
-							 	<option value="">----</option>
-							 	<option value="importExcel">importExcel</option>
-							 	<option value="registerWeb">registerWeb</option>
-							 </select>&nbsp;
-							  <button type="submit" class="btn btn-primary" ><em class='glyphicon glyphicon-search'></em>查找</button>	
-						</div>
-
-					</form>
-
-				</div>
-				<div class="col-xs-4 column" >
-					<div class="navbar-cus-a">
-						
-						<a href="<?php echo URL::to('member/member-import'); ?>"  class="btn btn-primary btn-custom">
-							<em class='glyphicon glyphicon-import'></em>导入
-						</a>
-						<a href="<?php echo URL::to('member/member-export'); ?>"   class="btn btn-primary btn-custom">
-							<em class='glyphicon glyphicon-export'></em>导出
-						</a>
-					</div>
-
-				</div>
 			</div>
 
 			<div id="list_content_div">
@@ -87,12 +51,15 @@
 								邮箱名称
 							</th>
 							<th>
-								会员分类
+								姓名
 							</th>
 							<th>
-								来源
+								公司
 							</th>
 							
+							<th>
+								手机号码
+							</th>
 							<th>
 								创建时间
 							</th>
@@ -103,13 +70,14 @@
 					</thead>
 					<tbody>
 						<?php $i = 0; ?>
-						<?php foreach($memberData as $value){ ?>
+						<?php foreach($memberInfoData as $value){ ?>
 							<?php echo $i == 1 ? "<tr class='active'>" : "<tr>"; ?>	
 								<td><?php echo $value->email; ?></td>
-								<td><?php echo $value->memberType; ?></td>
-								<td><?php echo $value->fromType; ?></td>
+								<td><?php echo $value->username; ?></td>
+								<td><?php echo $value->companyName; ?></td>
+								<td><?php echo $value->telephone; ?></td>
 								<td><?php echo $value->created_at; ?></td>
-								<td><a href="javascript:void(0);" onclick="deleteMember(<?php echo $value->id; ?>)">删除</a></td>
+								<td><a href="javascript:void(0);" onclick="deleteMemberInfo(<?php echo $value->id; ?>)">删除</a></td>
 							</tr>
 							<?php $i = 1 - $i; ?>
 						<?php }  ?>
@@ -150,15 +118,7 @@
 pagelist.filter["page"] = 1; //当前页
 pagelist.pageCount = <?php echo $pages; ?>; //总页数
 
-pagelist.mUrl = "<?php echo URL::to('member/member-page'); ?>";
-
-function searchMember(){
-	pagelist.filter.email = $("#email").val();
-	pagelist.filter.fromType = $("#fromType").val();
-	pagelist.filter.memberType = $("#memberType").val();
-	pagelist.filter.page = 1;
-	pagelist.loadPage();
-}
+pagelist.mUrl = "<?php echo URL::to('member/member-info-page'); ?>";
 
 //翻页回调函数
 pagelist.pageCallback = function(data){
@@ -180,9 +140,9 @@ function trim(str){ //删除左右两端的空格
      return str.replace(/(^\s*)|(\s*$)/g, "");    
 } 
 
-function deleteMember(id){
-	if(confirm("确定要删除该邮件吗？")){
-		window.location.href = "<?php echo URL::to('member/member-delete/'); ?>/" + id;
+function deleteMemberInfo(id){
+	if(confirm("确定要删除该会员吗？")){
+		window.location.href = "<?php echo URL::to('member/member-info-delete/'); ?>/" + id;
 	}
 }
 

@@ -9,6 +9,36 @@ class Member extends Eloquent{
 	 * key值
 	 */
 	private $api_key = "53LkfBnHYALhbCpm";
+
+	public function getMemberInfoCount(){
+		$condition = "WHERE isDele = 0 ";
+		
+		$sql =" SELECT
+					count(1) as c
+				FROM
+					eta_member_info " . $condition;
+		$result = DB::select($sql);
+
+		return $result[0]->c;
+	}
+
+	public function getMemberInfoData($offset = 0, $perPageSize = 10){
+		$condition = "WHERE isDele = 0 ";
+
+		$sql =" SELECT
+					*
+				FROM
+					eta_member_info
+				{$condition}
+				ORDER BY created_at DESC
+				LIMIT 
+					{$offset}, 
+				{$perPageSize}";
+				//echo $sql;
+		$result = DB::select($sql);
+		
+		return $result;
+	}
 	
 	public function getMemberCount($query = array()){
 		$condition = "WHERE isDele = 0 ";
@@ -303,8 +333,7 @@ class Member extends Eloquent{
 		     		'memberType' => isset($memberType) ? $memberType : '',
 		     		'fromType' => 'importExcel',
 		     		'created_at' => date('Y-m-d H:i:s'),
-		     		'updated_at' => date('Y-m-d H:i:s'),
-		     		'password' => Hash::make('123456'),
+		     		'updated_at' => date('Y-m-d H:i:s')
 		     	);
 		     	$id = DB::table('member')->insertGetId($newData);
 		     }

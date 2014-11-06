@@ -9,6 +9,80 @@ class MemberController extends BaseController {
 		$this->member = new Member;
 	}
 
+	public function getMemberInfo(){
+		$this->cVariable['total'] = $this->member->getMemberInfoCount();
+
+        $this->cVariable['pages'] = ceil($this->cVariable['total'] / 10); //总页数
+
+        $this->cVariable['memberInfoData'] = $this->member->getMemberInfoData();
+		
+		return View::make('Member.MemberInfo', $this->cVariable);
+	}
+
+	public function postMemberInfoPage(){
+		$page = Input::get('page');
+        $page_size = Input::get('page_size');
+		
+		$curPage = ($page !== FALSE && $page > 1) ? $page : 1;
+        $perPageSize = ($page_size !== FALSE && is_numeric($page_size)) ? $page_size : 10;
+
+        $data['filter']['page'] = $curPage;
+        $data['result_counts'] = $this->member->getMemberInfoCount();
+        $data['page_count'] = ceil($data['result_counts'] / $perPageSize); //总页数	
+
+        $offset = ($curPage - 1) * $perPageSize;
+
+        $newsData = $this->member->getMemberInfoData($offset, $perPageSize);
+
+        $html = "<table class='table'>";
+        $html .= "<thead>";
+        $html .= "<tr>";
+        $html .= "<th>邮箱名称</th>";
+        $html .= "<th>姓名</th>";
+        $html .= "<th>公司</th>";
+        $html .= "<th>手机号码</th>";
+        $html .= "<th>创建时间</th>";
+        $html .= "<th>操作</th>";
+		$html .= "</tr>";			
+		$html .= "</thead>";
+		$i = 0;	
+		if(!empty($newsData)){
+			foreach ($newsData as  $value) {
+	        	$html .= $i == 1 ? "<tr class='active'>" : "<tr>";
+	        	$html .= "<td>{$value->email}</td>";
+	        	$html .= "<td>{$value->username}</td>";
+	        	$html .= "<td>{$value->companyName}</td>";
+	        	$html .= "<td>{$value->telephone}</td>";
+	        	$html .= "<td>{$value->created_at}</td>";
+	        	$html .= "<td>";
+	        	$html .= "<a href='javascript:void(0);' onclick='deleteMemberInfo(".$value->id.")'>删除</a>";
+				$html .= "</td>";
+				$html .= "</tr>";
+				$i = 1 - $i;
+	        }
+		}else{
+			$html .= "<tr><td colspan='6'>没有找到相关数据</td></tr>";
+		}
+		$html .= "</table>";
+
+        $data['html'] = $html;
+        echo json_encode($data);
+	}
+
+	/**
+	 * 删除该会员
+	 */
+	public function getMemberInfoDelete($id){
+		$action = "member/member-info";
+		if(is_numeric($id)){
+			$this->log('删除会员ID：'.$id);
+			DB::table('member_info')
+			->where('id',$id)
+			->update(array('isDele'=>1));
+		}
+		return Redirect::to($action);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -88,6 +162,19 @@ class MemberController extends BaseController {
         $data['html'] = $html;
         echo json_encode($data);
 
+	}
+
+	/**
+	 * 删除邮件
+	 */
+	public function getMemberDelete($id){
+		$action = "member/member-index";
+		if(is_numeric($id)){
+			DB::table('member')
+			->where('id',$id)
+			->delete();
+		}
+		return Redirect::to($action);
 	}
 
 	public function getMemberImport(){
