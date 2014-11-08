@@ -41,7 +41,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return DB::table('users')->where('id', '=', $id)->get();
 	}
 
-	public function getUserCount($sRealName = ""){
+	public function getUserCount($query = array()){
 		// $count = DB::table('users')
 		// 			->join('role', 'role.roleId', '=', 'users.roleId')
 		// 			->select('users.*','role.roleName')
@@ -56,8 +56,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		// 			->count();
 		// return $count;
 		$condition = "WHERE t1.isDele = 0 ";
-		if($sRealName){
-		   $condition .= " AND realName LIKE '%".$sRealName."%' ";
+		if(isset($query['sRealName']) && strlen($query['sRealName']) > 0){
+		   $condition .= " AND t1.realName LIKE '%".$query['sRealName']."%' ";
+		}
+
+		if(isset($query['id']) && strlen($query['id']) > 0){
+		   $condition .= " AND t1.id = {$query['id']} ";
 		}
 		$sql = "SELECT 
 					count(1) as c 
@@ -69,7 +73,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $result[0]->c;
 	}
 
-	public function getUserData($sRealName = "", $offset = 0, $perPageSize = 10){
+	public function getUserData($query=array(), $offset = 0, $perPageSize = 10){
 		// $user = DB::table('users')
 		// 			->join('role', 'role.roleId', '=', 'users.roleId')
 		// 			->select('users.*','role.roleName')
@@ -86,8 +90,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		// 			->get();
 		// return $user;
 		$condition = "WHERE t1.isDele = 0 ";
-		if($sRealName){
-		   $condition .= " AND realName LIKE '%".$sRealName."%' ";
+		if(isset($query['sRealName']) && strlen($query['sRealName']) > 0){
+		   $condition .= " AND t1.realName LIKE '%".$query['sRealName']."%' ";
+		}
+
+		if(isset($query['id']) && strlen($query['id']) > 0){
+		   $condition .= " AND t1.id = {$query['id']} ";
 		}
 		$sql = "SELECT 
 					t1.*, t2.roleName 

@@ -18,19 +18,27 @@ class UserController extends BaseController {
 	 */
 	public function getUserIndex()
 	{
+		//当不是超级管理员时 只显示本人用户信息
+		$query = array();
+		if($this->cVariable['userInfo']->id != 17){
+			$query['id'] = $this->cVariable['userInfo']->id;
+		}
 		
-		$this->cVariable['total'] = $this->user->getUserCount();
+		$this->cVariable['total'] = $this->user->getUserCount($query);
 
         $this->cVariable['pages'] = ceil($this->cVariable['total'] / 10); //总页数
 
-        $this->cVariable['userData'] = $this->user->getUserData("");
+        $this->cVariable['userData'] = $this->user->getUserData($query);
 
 		return View::make('User.UserIndex', $this->cVariable);
 	}
 
 	public function postUserPage(){
-
-		$sRealName = $this->str_escape(Input::get("sRealName"));
+		$query = array();
+		$query['sRealName'] = $this->str_escape(Input::get("sRealName"));
+		if($this->cVariable['userInfo']->id != 17){
+			$query['id'] = $this->cVariable['userInfo']->id;
+		}
 		$page = Input::get('page');
         $page_size = Input::get('page_size');
 		
@@ -38,12 +46,12 @@ class UserController extends BaseController {
         $perPageSize = ($page_size !== FALSE && is_numeric($page_size)) ? $page_size : 10;
 
         $data['filter']['page'] = $curPage;
-        $data['result_counts'] = $this->user->getUserCount($sRealName);
+        $data['result_counts'] = $this->user->getUserCount($query);
         $data['page_count'] = ceil($data['result_counts'] / $perPageSize); //总页数	
 
         $offset = ($curPage - 1) * $perPageSize;
 
-        $userData = $this->user->getUserData($sRealName, $offset, $perPageSize);
+        $userData = $this->user->getUserData($query, $offset, $perPageSize);
 
         $html = "<table class='table'>";
         $html .= "<thead>";
@@ -103,7 +111,9 @@ class UserController extends BaseController {
 	 */
 	public function getUserUpdate($id){
 		$this->cVariable['roles'] = DB::table('role')->where('isDele', 0)->orderBy('created_at', 'desc')->get();
+		//var_dump($this->cVariable['roles']);
 		$this->cVariable['userData'] = $this->user->getUserAdmin($id);
+		//var_dump($this->cVariable['userData']);
 		return View::make('User.UserUpdate', $this->cVariable);
 	}
 
@@ -137,7 +147,7 @@ class UserController extends BaseController {
 		
 		if(!$valid->fails()){
 			if($this->user->updateData($inputData)){
-				$action = 'user-index';
+				$action = $this->cVariable['userInfo']->id == 17 ?'user-index' : 'user-update/' . $inputData['id'];
 			}
 		}
 

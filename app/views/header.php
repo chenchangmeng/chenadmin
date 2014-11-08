@@ -31,7 +31,7 @@
 <div class="row clearfix top-header">
 	<div class="col-xs-4 column">
 	</div>
-	<div class="col-xs-8 column" >
+	<div class="col-xs-8 column" style="padding-right:0px;">
 		<div style="float:right;">
 			<span><a href="#">前台首页</a></span>
 			<span><a href="<?php echo URL::to('user/user-update-pass'); ?>">修改密码</a></span>
@@ -51,18 +51,27 @@
 	</div>
 	<div class="col-xs-8 column" style="padding-right:0px;">
 		<div class="btn-group" style="margin-top:8px;float:right;">
-			 <a class="btn btn-default" href="">
+			 <a class="btn btn-default" href="<?php echo URL::to('user/user-update/'.$userInfo->id); ?>">
 			 	<em class="glyphicon glyphicon-user"></em> 用户信息
 			 </a> 
+			 <?php if($currNode['NewsController'] == 1){ ?>
 			 <a class="btn btn-default" href="<?php echo URL::to('news/news-add'); ?>">
 			 	<em class='glyphicon glyphicon-plus'></em> 添加新闻
 			 </a> 
+			 <?php } ?>
+			 <?php if($currNode['ProductController'] == 1){ ?>
 			 <a class="btn btn-default" href="<?php echo URL::to('taxonomy/taxonomy-add/4'); ?>">
 			 	<em class='glyphicon glyphicon-plus'></em> 添加产品
 			 </a> 
 			 <a class="btn btn-default" href="<?php echo URL::to('taxonomy/taxonomy-add/6'); ?>">
 			 	<em class='glyphicon glyphicon-plus'></em> 添加服务
+			 </a>
+			<?php } ?>
+			<?php if($currNode['MemberController'] == 1){ ?>
+			<a class="btn btn-default" href="<?php echo URL::to('member/member-send-email'); ?>">
+			 	<em class='glyphicon glyphicon-envelope'></em> 邮件群发
 			</a>
+			<?php } ?>
 		</div>
 	</div>
 </div>

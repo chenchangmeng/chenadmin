@@ -314,6 +314,7 @@ function saveInfo(){
 				success : function(data){
 					if(data == "success"){
 					   alert("保存信息成功");
+					   $("#newFlag").val(1);
 					}else{
 					   window.location.href = window.location.href;
 					}

@@ -308,7 +308,7 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 }
 </style>
 <?php echo HTML::script('js/ace.min.js'); ?>
-<div class="col-xs-2 column sidebar" style="padding-left:2px;padding-top:4px;padding-right:0px;" >
+<div class="col-xs-2 column sidebar" style="padding-left:2px;padding-top:4px;padding-right:0px;height:525px;" >
 	<ul class="nav nav-list">
 		<li class="<?php if($currentC == 'DashboardController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('dashboard/dashboard-index'); ?>">
@@ -316,7 +316,7 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 				<span class="menu-text"> 控制台 </span>
 			</a>
 		</li>
-
+		<?php if($currNode['EtaController'] == 1){ ?>
 		<li class="<?php if($currentC == 'EtaController'){echo 'active';} ?>">
 			<a href="javascript:void(0);" class="dropdown-toggle">
 				<em class="glyphicon glyphicon-comment"></em>
@@ -353,14 +353,16 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 
 			</ul>
 		</li>
-
+		<?php } ?>
+		<?php if($currNode['NewsController'] == 1){ ?>
 		<li class="<?php if($CCName == 'NewsController'){echo 'active';} ?>">
 			<a href="<?php echo URL::to('news/news-index'); ?>">
 				<em class="glyphicon glyphicon-book"></em>
 				<span class="menu-text"> 新闻管理 </span>
 			</a>
 		</li>
-
+		<?php } ?>
+		<?php if($currNode['ProductController'] == 1){ ?>
 		<li class="<?php if($currentC == 'ProductController'){echo 'active';} ?>">
 			<a href="javascript:void(0);" class="dropdown-toggle">
 				<em class="glyphicon glyphicon-th-list"></em>
@@ -409,7 +411,8 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 				<?php } ?>			
 			</ul>
 		</li>
-
+		<?php } ?>
+		<?php if($currNode['DownloadController'] == 1){ ?>
 		<li  class="<?php if($currentC == 'DownloadController'){echo 'active';} ?>">
 			<a href="javascript:void(0);" class="dropdown-toggle">
 				<em class="glyphicon glyphicon-download-alt"></em>
@@ -434,7 +437,8 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 				</li>
 			</ul>
 		</li>
-
+		<?php } ?>
+		<?php if($currNode['CustomerController'] == 1){ ?>
 		<li  class="<?php if($currentC == 'CustomerController'){echo 'active';} ?>">
 			<a href="javascript:void(0);" class="dropdown-toggle">
 				<em class="glyphicon glyphicon-tower"></em>
@@ -451,7 +455,8 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 				<?php } ?>
 			</ul>
 		</li>
-
+		<?php } ?>
+		<?php if($currNode['MemberController'] == 1){ ?>
 		<li  class="<?php if($currentC == 'MemberController'){echo 'active';} ?>">
 			<a href="javascript:void(0);" class="dropdown-toggle">
 				<em class="glyphicon glyphicon-envelope"></em>
@@ -493,7 +498,8 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 				</li>
 			</ul>
 		</li>
-
+		<?php } ?>
+		<?php if($currNode['UserController'] == 1){ ?>
 		<li  class="<?php if($currentC == 'UserController'){echo 'active';} ?>">
 			<a href="javascript:void(0);" class="dropdown-toggle">
 				<em class="glyphicon glyphicon-user"></em>
@@ -521,9 +527,16 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 						我的密码
 					</a>
 				</li>
+				<li>
+					<a href="<?php echo URL::to('role/role-index'); ?>">
+						<i class="icon-double-angle-right"></i>
+						角色列表
+					</a>
+				</li>
 			</ul>
 		</li>
-
+		<?php } ?>
+		<?php if($currNode['TaxonomyController'] == 1){ ?>
 		<li  class="<?php if($currentC == 'TaxonomyController'){echo 'active';} ?>">
 			<a href="javascript:void(0);" class="dropdown-toggle">
 				<em class="glyphicon glyphicon-cog"></em>
@@ -560,5 +573,6 @@ li [class^="icon-"],li [class*=" icon-"],.nav-list li [class^="icon-"],.nav-list
 				</li>
 			</ul>
 		</li>
+		<?php } ?>
 	</ul><!-- /.nav-list -->
 </div>

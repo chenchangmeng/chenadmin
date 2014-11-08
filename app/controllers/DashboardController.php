@@ -17,7 +17,13 @@ class DashboardController extends BaseController {
 	}
 
 	public function postDashboardConfigData(){
+		$xss = new Xss;
 		$data = Input::all();
+		if(is_array($data) && !empty($data)){
+			foreach ($data as $key => $value) {
+				$data[$key] = $xss->clean($value);
+			}
+		}
 		$con = serialize($data);
 		$config = array(
 			'type' => 'dashboard',

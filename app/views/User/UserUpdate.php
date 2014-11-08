@@ -66,12 +66,18 @@
 				<div class="form-group">
 					 <label for="role_id" class="col-sm-2 control-label">角色组<span class="asterisk-tip">*</span>：</label>
 					<div class="col-xs-7" id="role_id_mess">
-						<select name="role_id" id="role_id" class="form-control operate-form">
-							<option value="">--请选择--</option>
-							<?php foreach ($roles as  $value) {  ?>
-								<option <?php if($value->roleId == $userData[0]->roleId){echo "selected";} ?> value="<?php echo $value->roleId; ?>"><?php echo $value->roleName; ?></option>
-							<?php }  ?>
-						</select>
+						
+						<?php if($userInfo->id != 17){ ?>
+							<input type="hidden" name="role_id" id="role_id" value="<?php echo $userData[0]->roleId; ?>" /> 
+							<input type="text" class="form-control operate-form" readonly="readonly" name="role_name" id="role_name" value="<?php echo $userInfo->roleName; ?>" /> 
+						<?php }else{ ?>
+							<select name="role_id" id="role_id" class="form-control operate-form">
+								<option value="">--请选择--</option>
+								<?php foreach ($roles as  $value) {  ?>
+									<option  <?php if($value->roleId == $userData[0]->roleId){echo "selected";} ?> value="<?php echo $value->roleId; ?>"><?php echo $value->roleName; ?></option>
+								<?php }  ?>
+							</select>
+						<?php } ?>
 					</div>
 				</div>
 

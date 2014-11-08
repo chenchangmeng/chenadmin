@@ -131,7 +131,7 @@
 							        
 							    </script>
 							    <!-- 配置文件 -->
-							    <?php echo HTML::script('js/ueditor/ueditor.config-career.js'); ?>
+							    <?php echo HTML::script('js/ueditor/ueditor.config.js'); ?>
 							    <!-- 编辑器源码文件 -->
 							    <?php echo HTML::script('js/ueditor/ueditor.all.min.js'); ?>
 							    <!-- 实例化编辑器 -->

@@ -47,7 +47,7 @@ class BaseController extends Controller {
 	 * 初始化模版
 	 */
 	private function initTemplate(){
-		$this->cVariable['header'] = View::make('header');
+		$this->cVariable['header'] = View::make('header', $this->cVariable);
 		$this->cVariable['menu'] = View::make('menu1', $this->cVariable);
 		$this->cVariable['footer'] = View::make('footer');
 	}
@@ -60,7 +60,23 @@ class BaseController extends Controller {
 		if(in_array($CCName, array('BranchController', 'PartnerController', 'CareerController'))){
 			$this->cVariable['currentC'] = 'EtaController';
 		}
+		if($CCName == 'RoleController'){
+			$this->cVariable['currentC'] = 'UserController';
+		}
 
+		//查找当前用户组的权限
+		if(!isset($this->cVariable['userInfo']->roleId)){
+			return Redirect::guest('login');
+		}
+		$role = new Role;
+		$currNode = array();
+		$roleProvData = $role->getRoleProvData($this->cVariable['userInfo']->roleId);
+		foreach ($roleProvData['tempData'] as $key => $value) {
+			$currNode[$value['provNode']] = $value['roleProv'];
+		}
+		//var_dump($currNode);
+		$this->cVariable['currNode'] = $currNode;
+		
 		$UPath = Request::path();
 		if(stripos($UPath, '/', 0) !== false){
 		   $UArr = explode('/', $UPath);

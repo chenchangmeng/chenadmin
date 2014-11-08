@@ -233,6 +233,7 @@ class MemberController extends BaseController {
 		$fromEmail = trim(Input::get("fromEmail"));
 
 		$content = trim(Input::get("content"));
+		$content = str_replace('<img src="','<img src="http://115.29.209.67/',$content);
 		// echo "<pre>";
 		// var_dump($content);
 		// echo "</pre>";

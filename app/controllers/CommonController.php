@@ -68,7 +68,7 @@ class CommonController extends Controller{
 			            ->get();
 			Session::put('userInfo', serialize($userInfo[0]));
 
-			return Redirect::to("news/news-index");
+			return Redirect::to("dashboard/dashboard-index");
 		}else{
 			Session::flash('loginMsg', '用户名或密码错误！');
 			return Redirect::to("login");

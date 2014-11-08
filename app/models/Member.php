@@ -188,7 +188,7 @@ class Member extends Eloquent{
         		$data[$key] = $value;
         	}
         }
-        $this->logEmailError('parama', serialize($data));
+        //$this->logEmailError('parama', serialize($data));
 		$ch = curl_init();
 
 	    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);

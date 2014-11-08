@@ -89,6 +89,13 @@
 						<input type="text" value="<?php if(isset($content['companyEmail'])){echo $content['companyEmail'];} ?>" class="form-control operate-form" maxlength="80" name="companyEmail" id="companyEmail" />
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="companyInfo" class="col-sm-2 control-label">公司简介：</label>
+					<div class="col-xs-7" id="companyInfo_mess">
+						<textarea class="form-control" rows="6" name="companyInfo" id="companyInfo"><?php if(isset($content['companyInfo'])){echo $content['companyInfo'];} ?></textarea>
+						
+					</div>
+				</div>
 												
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-xs-5">

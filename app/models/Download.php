@@ -106,7 +106,8 @@ class Download extends Eloquent{
 	 * 读取目录下的软件或者文件
 	 */
 	public function getFileList($fileType = "soft"){
-		$dirPath = $save_path = dirname(dirname(getcwd())) . "/etaf/public/upload/{$fileType}/";
+		//$dirPath = dirname(dirname(getcwd())) . "/etaf/public/upload/{$fileType}/";
+		$dirPath = dirname(dirname(getcwd())) . "/etaUpload/{$fileType}/";
 		$fileData = array();
 		if(is_dir($dirPath)){
 			if($dh = opendir($dirPath)){

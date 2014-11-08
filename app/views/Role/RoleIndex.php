@@ -82,7 +82,14 @@
 									<a href="javascript:void(0);" onclick='modifyRoleName(<?php echo $value->roleId; ?>,"<?php echo $value->roleName; ?>")'><?php echo $value->roleName; ?></a>
 								</td>
 								<td><?php echo $value->created_at; ?></td>
-								<td><a href="javascript:void(0);" onclick="DeleteRole(<?php echo $value->roleId; ?>)">删除</a></td>
+								<td>
+									<?php if($value->roleId != 1){ ?>
+										<a href="<?php echo URL::to('role/role-prov-index/'.$value->roleId); ?>">授权</a>
+										<a href="javascript:void(0);" onclick="DeleteRole(<?php echo $value->roleId; ?>)">删除</a>
+									<?php } ?>
+									
+									
+								</td>
 							</tr>
 							<?php $i = 1 - $i; ?>
 						<?php }  ?>

@@ -44,7 +44,7 @@
 				<div class="col-xs-12 column">
 
 					<!-- 加载编辑器的容器 -->
-					<label for="content" class="control-label"><h4>公司简介：</h4></label>
+					<label for="content" class="control-label"><h4>公司详细信息：</h4></label>
 					<?php echo Form::open(array('url' => '', 'method' => 'post',  'id'=>'career_add_form', 'name'=>'career_add_form'));  ?>
 					    <input type="hidden" id="companyBasicId" name="companyBasicId" value="<?php echo $companyBasicData[0]->id; ?>" />
 					    <script id="companyInfo" name="companyInfo" type="text/plain">
