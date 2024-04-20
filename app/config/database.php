@@ -54,13 +54,13 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '192.168.2.70',
-			'database'  => 'eta',
-			'username'  => 'root',
-			'password'  => 'root',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => 'eta_',
+			'host'      => '',
+			'database'  => '',
+			'username'  => '',
+			'password'  => '',
+			'charset'   => '',
+			'collation' => '',
+			'prefix'    => '',
 		),
 
 		'pgsql' => array(
